@@ -1,6 +1,7 @@
 package com.ldnr.punissement.ui.main;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,9 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 
 import com.ldnr.punissement.R;
+import com.ldnr.punissement.ui.main.entity.EntityPunissement;
+
+import java.util.List;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -47,10 +51,18 @@ public class PlaceholderFragment extends Fragment {
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         final TextView textView = root.findViewById(R.id.section_label);
-        pageViewModel.getText().observe(this, new Observer<String>() {
+        pageViewModel.getText().observe(this, new Observer<List>() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public void onChanged(@Nullable List s) {
+                try{
+                    EntityPunissement b = ((EntityPunissement) s.get(0));
+                    textView.setText(b.title);
+                }catch(Exception e){
+                    Log.d("testing", "Erreur" + e.getMessage());
+                    textView.setText(e.getMessage() + s.get(0));
+
+                }
+
             }
         });
         return root;
