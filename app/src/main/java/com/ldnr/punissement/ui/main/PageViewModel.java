@@ -12,7 +12,7 @@ public class PageViewModel extends ViewModel {
     private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {
         @Override
         public String apply(Integer input) {
-            return "Hello ciao ciao section: " + input;
+            return "Hello git ciao ciao section: " + input;
 
         }
     });
