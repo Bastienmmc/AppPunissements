@@ -15,6 +15,12 @@ public class EntityTypePunition implements IEntity  {
         this.title = title;
     }
 
+    public EntityTypePunition(int id, String title, String description) {
+        this.id = id;
+        this.title= title;
+        this.description = description;
+    }
+
     public static List<EntityTypePunition> getList() {
         // list.add(new EntityStagiaires("stagiares"));
         return list;

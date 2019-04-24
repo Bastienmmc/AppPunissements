@@ -5,6 +5,9 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,6 +19,7 @@ import com.ldnr.punissement.ui.main.adapter.AdapterStagiaires;
 import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityPunissement;
 import com.ldnr.punissement.ui.main.entity.EntityStagiaires;
+import com.ldnr.punissement.ui.main.screens.CreateActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,36 +55,6 @@ public class PageViewModel extends ViewModel {
         }
     });
 
-
-    /*
-
-
-    private LiveData<List> groupes = Transformations.map(mIndex, new Function<Integer, List>() {
-        @Override
-        public List apply(Integer input) {
-            switch (input) {
-                case (1):
-                    return EntityPunissement.getList();
-                //break;
-                case (2):
-                    return EntityStagiaires.getList();
-                //break;
-                case (3):
-                    return EntityGroupes.getList();
-                //break;
-                default:
-                    return null;
-            }
-        }
-    });
-
-    */
-//    private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {
-//        @Override
-//        public String apply(Integer input) {
-//            return "Coucou 16h40 " + input;
-//        }
-//    });
 
     public PageViewModel() {
         if (bool == false) {
@@ -133,10 +107,6 @@ public class PageViewModel extends ViewModel {
 
     }
 
-//    public LiveData<String> getText() {
-//        return mText;
-//    }
-
     public void setIndex(int index) {
         mIndex.setValue(index);
     }
@@ -147,5 +117,15 @@ public class PageViewModel extends ViewModel {
 
     public String getFabFunction() {
         return fabfunction[mIndex.getValue() - 1];
+    }
+
+    public void openCreateActivity(View view,int tab , int pos) {
+        Bundle dataBundle = new Bundle();
+        dataBundle.putInt("pos_tab", tab);  //1,2,3
+        dataBundle.putInt("pos_list", pos);  //-1 if for new data
+        Context context = view.getContext();
+        Intent openIntent = new Intent(context, CreateActivity.class);
+        openIntent.putExtras(dataBundle);
+        context.startActivity(openIntent);
     }
 }

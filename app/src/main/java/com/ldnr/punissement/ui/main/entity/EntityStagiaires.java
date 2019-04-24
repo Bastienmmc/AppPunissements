@@ -11,7 +11,20 @@ public class EntityStagiaires  implements IEntity{
     private String name;
     private String firstname;
     private String path_photo;
+    private String mail;
+    private String sms;
     private int id_groupe;
+
+
+    public EntityStagiaires(int id, String name, String firstname, String path_photo, String mail, String sms, int id_groupe) {
+        this.id = id;
+        this.name = name;
+        this.firstname = firstname;
+        this.path_photo = path_photo;
+        this.mail = mail;
+        this.sms = sms;
+        this.id_groupe = id_groupe;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -25,8 +38,12 @@ public class EntityStagiaires  implements IEntity{
         this.path_photo = path_photo;
     }
 
-    public void setId_groupe(int id_groupe) {
-        this.id_groupe = id_groupe;
+    public void setmail(String mail) {
+        this.mail = mail;
+    }
+
+    public void setsms(String sms) {
+        this.mail = sms;
     }
 
     public String getName() {
@@ -39,6 +56,14 @@ public class EntityStagiaires  implements IEntity{
 
     public String getPath_photo() {
         return path_photo;
+    }
+
+    public String getSms() {
+        return sms;
+    }
+
+    public String getMail() {
+        return mail;
     }
 
     public int getId_groupe() {

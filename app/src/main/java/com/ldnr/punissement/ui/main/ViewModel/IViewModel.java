@@ -20,5 +20,5 @@ public interface IViewModel {
 
     public RecyclerItemClickListener.OnItemClickListener getTouchListenerFunction();
 
-
+    public void openCreateActivity(View view,int tab , int pos) ;
 }

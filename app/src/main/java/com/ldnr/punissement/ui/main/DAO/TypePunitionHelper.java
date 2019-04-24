@@ -2,12 +2,16 @@ package com.ldnr.punissement.ui.main.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityTypePunition;
 import com.ldnr.punissement.ui.main.entity.IEntity;
+
+import java.util.ArrayList;
 
 public class TypePunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
 
@@ -22,7 +26,7 @@ public class TypePunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
 
     // Déclaration méthodes d'accès à la BDD
     private SQLiteDatabase dbWrite = this.getWritableDatabase();
-    // private SQLiteDatabase dbRead = this.getReadableDatabase();
+    private SQLiteDatabase dbRead = this.getReadableDatabase();
 
     // Constructeur
     public TypePunitionHelper(Context context) {
@@ -95,5 +99,45 @@ public class TypePunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
 
     }
 
+    /**
+     * Fonction qui renvoie la liste des groupes
+     * @return
+     */
+    @Override
+    public ArrayList<IEntity> getList() {
+        ArrayList<IEntity> typePunitions = new ArrayList<>();
+        Cursor res = dbRead.rawQuery("SELECT * FROM " + TABLE_TYPE_PUNITION_COLUMN_DESCRIPTION,null);
+        // Si la base est vide, renvoie la liste initialisée à vide
+        if(res.getCount() == 0) {
+            res.close();
+            return typePunitions;
+        }
+        res.moveToFirst();
+        while(!res.isAfterLast()) {
+            EntityTypePunition typePunition = new EntityTypePunition(res.getInt(res.getColumnIndex(TABLE_TYPE_PUNITION_COLUMN_ID)),
+                    res.getString(res.getColumnIndex(TABLE_TYPE_PUNITION_COLUMN_TITLE)),
+                    res.getString(res.getColumnIndex(TABLE_TYPE_PUNITION_COLUMN_DESCRIPTION)));
+            typePunitions.add(typePunition);
+            res.moveToNext();
+        }
+        res.close();
+        return typePunitions;
+    }
+
+    @Override
+    public IEntity getElement(int id) {
+        Cursor cursor = dbRead.query(TABLE_TYPE_PUNITION_COLUMN_TITLE,
+                new String[]{TABLE_TYPE_PUNITION_COLUMN_ID, TABLE_TYPE_PUNITION_COLUMN_TITLE, TABLE_TYPE_PUNITION_COLUMN_DESCRIPTION},
+                TABLE_TYPE_PUNITION_COLUMN_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+        EntityTypePunition typePunition = new EntityTypePunition(cursor.getInt(cursor.getColumnIndex(TABLE_TYPE_PUNITION_COLUMN_ID)),
+                cursor.getString(cursor.getColumnIndex(TABLE_TYPE_PUNITION_COLUMN_TITLE)),
+                cursor.getString(cursor.getColumnIndex(TABLE_TYPE_PUNITION_COLUMN_DESCRIPTION)));
+
+        cursor.close();
+        return typePunition;
+    }
 
 }
