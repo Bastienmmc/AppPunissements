@@ -46,7 +46,7 @@ public class TypePunitionHelper extends SQLiteOpenHelper {
 
     // Insertion d'un Groupe dans la base de données :
     // MODIFIER NOM OBJET !!!!!!!
-    public void insertStagiaire(TypePunitionObject pTypePunition) {
+    /* public void insertStagiaire(TypePunitionObject pTypePunition) {
 
         ContentValues content = new ContentValues();
         content.put(TABLE_TYPE_PUNITION_COLUMN_TITLE, pTypePunition.getText());
@@ -76,6 +76,6 @@ public class TypePunitionHelper extends SQLiteOpenHelper {
     public void deleteCity(TypePunitionObject pGroupe) {
         dbWrite.delete(TABLE_TYPE_PUNITION_NAME, TABLE_TYPE_PUNITION_COLUMN_ID + " = ?",
                 new String[]{String.valueOf(pTypePunition.getId())});
-    }
+    } */
 
 }

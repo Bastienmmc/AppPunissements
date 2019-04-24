@@ -6,6 +6,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.ldnr.punissement.ui.main.entity.EntityStagiaires;
+
 public class StagiaireHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "punissements.db";
@@ -50,7 +52,7 @@ public class StagiaireHelper extends SQLiteOpenHelper {
 
     // Insertion d'un Stagiaire dans la base de données :
     // MODIFIER NOM OBJET !!!!!!!
-    public void insertStagiaire(StagiaireObject pStagiaire) {
+    public void insertStagiaire(EntityStagiaires pStagiaire) {
 
         ContentValues content = new ContentValues();
         content.put(TABLE_STAGIAIRE_COLUMN_NAME, pStagiaire.getText());
@@ -66,7 +68,7 @@ public class StagiaireHelper extends SQLiteOpenHelper {
     }
 
     // Mise à jour d'un stagiaire
-    public void updateStagiaire(StagiaireObject pStagiaire) {
+    public void updateStagiaire(EntityStagiaires pStagiaire) {
         ContentValues values = new ContentValues();
         values.put(TABLE_STAGIAIRE_COLUMN_NAME, pStagiaire.getText());
         values.put(TABLE_STAGIAIRE_COLUMN_FIRSTNAME, pStagiaire.getText());
@@ -79,7 +81,7 @@ public class StagiaireHelper extends SQLiteOpenHelper {
 
     // Suppression Stagiaire
 
-    public void deleteCity(StagiaireObject pStagiaire) {
+    public void deleteCity(EntityStagiaires pStagiaire) {
         dbWrite.delete(TABLE_STAGIAIRE_NAME, TABLE_STAGIAIRE_COLUMN_ID + " = ?",
                 new String[]{String.valueOf(pStagiaire.getId())});
     }

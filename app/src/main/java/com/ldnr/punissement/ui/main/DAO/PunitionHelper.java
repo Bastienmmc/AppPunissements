@@ -6,6 +6,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.ldnr.punissement.ui.main.entity.EntityPunissement;
+
 public class PunitionHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "punissements.db";
@@ -53,7 +55,7 @@ public class PunitionHelper extends SQLiteOpenHelper {
 
     // Insertion d'une punition dans la base de données :
     // MODIFIER NOM OBJET !!!!!!!
-    public void insertStagiaire(PunitionObject pGroupe) {
+    public void insertStagiaire(EntityPunissement pGroupe) {
 
         ContentValues content = new ContentValues();
         content.put(TABLE_PUNITION_COLUMN_TITLE, pGroupe.getText());
@@ -71,7 +73,7 @@ public class PunitionHelper extends SQLiteOpenHelper {
     }
 
     // Mise à jour d'un stagiaire
-    public void updateStagiaire(PunitionObject pPunition) {
+    public void updateStagiaire(EntityPunissement pPunition) {
         ContentValues values = new ContentValues();
         values.put(TABLE_PUNITION_COLUMN_TITLE, pPunition.getText());
         values.put(TABLE_PUNITION_COLUMN_DESCRIPTION, pPunition.getText());
@@ -86,9 +88,9 @@ public class PunitionHelper extends SQLiteOpenHelper {
 
     // Suppression Stagiaire
 
-    public void deleteCity(PunitionObject pGroupe) {
+    public void deleteCity(EntityPunissement pPunition) {
         dbWrite.delete(TABLE_PUNITION_NAME, TABLE_PUNITION_COLUMN_ID + " = ?",
-                new String[]{String.valueOf(pGroupe.getId())});
+                new String[]{String.valueOf(pPunition.getId())});
     }
 
 }

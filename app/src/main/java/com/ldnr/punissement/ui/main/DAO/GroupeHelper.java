@@ -6,6 +6,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.ldnr.punissement.ui.main.entity.EntityGroupes;
+
 public class GroupeHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "punissements.db";
@@ -48,7 +50,7 @@ public class GroupeHelper extends SQLiteOpenHelper {
 
     // Insertion d'un Groupe dans la base de données :
     // MODIFIER NOM OBJET !!!!!!!
-    public void insertStagiaire(GroupeObject pGroupe) {
+    public void insertStagiaire(EntityGroupes pGroupe) {
 
         ContentValues content = new ContentValues();
         content.put(TABLE_GROUPE_COLUMN_LIBELLE, pGroupe.getText());
@@ -63,7 +65,7 @@ public class GroupeHelper extends SQLiteOpenHelper {
     }
 
     // Mise à jour d'un stagiaire
-    public void updateStagiaire(GroupeObject pGroupe) {
+    public void updateStagiaire(EntityGroupes pGroupe) {
         ContentValues values = new ContentValues();
         values.put(TABLE_GROUPE_COLUMN_LIBELLE, pGroupe.getText());
         values.put(TABLE_GROUPE_COLUMN_PATH_PHOTO, pGroupe.getImageUrl());
@@ -75,7 +77,7 @@ public class GroupeHelper extends SQLiteOpenHelper {
 
     // Suppression Stagiaire
 
-    public void deleteCity(GroupeObject pGroupe) {
+    public void deleteCity(EntityGroupes pGroupe) {
         dbWrite.delete(TABLE_GROUPE_NAME, TABLE_GROUPE_COLUMN_ID + " = ?",
                 new String[]{String.valueOf(pGroupe.getId())});
     }
