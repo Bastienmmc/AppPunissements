@@ -9,18 +9,14 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
-import com.ldnr.punissement.MainActivity;
-import com.ldnr.punissement.R;
 import com.ldnr.punissement.ui.main.RecyclerItemClickListener;
 import com.ldnr.punissement.ui.main.adapter.AdapterGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 import com.ldnr.punissement.ui.main.screens.CreateActivity;
-import com.ldnr.punissement.ui.main.screens.CreateGroupesFragment;
+
 
 import java.util.List;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+
 public class GroupesViewModel extends ViewModel implements IViewModel {
     private static final RecyclerView.Adapter adapter = AdapterGroupes.getInstance(EntityGroupes.getList());
     public static boolean bool = false;

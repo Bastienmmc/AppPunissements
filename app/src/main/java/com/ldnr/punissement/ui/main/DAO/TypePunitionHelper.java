@@ -7,11 +7,17 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.ldnr.punissement.ui.main.entity.EntityGroupes;
-import com.ldnr.punissement.ui.main.entity.EntityTypePunition;
+
+
+
 import com.ldnr.punissement.ui.main.entity.IEntity;
 
 import java.util.ArrayList;
+
+
+import com.ldnr.punissement.ui.main.entity.EntityTypePunition;
+
+
 
 public class TypePunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
 
@@ -104,8 +110,11 @@ public class TypePunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
      * @return
      */
     @Override
+
     public ArrayList<IEntity> getList() {
-        ArrayList<IEntity> typePunitions = new ArrayList<>();
+
+        ArrayList <IEntity> typePunitions = new ArrayList<>();
+
         Cursor res = dbRead.rawQuery("SELECT * FROM " + TABLE_TYPE_PUNITION_COLUMN_DESCRIPTION,null);
         // Si la base est vide, renvoie la liste initialisée à vide
         if(res.getCount() == 0) {
