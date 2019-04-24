@@ -55,8 +55,9 @@ public class PlaceholderFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         final TextView textView = root.findViewById(R.id.section_label);
 
-        // final RecyclerView recyclerView1 = root.findViewById(R.id.recyclerView);
-        recyclerView = this.getView().findViewById(R.id.recyclerView);
+         //final RecyclerView recyclerView1 = root.findViewById(R.id.recyclerView);
+        //recyclerView = this.getView().findViewById(R.id.recyclerView);
+        recyclerView = root.findViewById(R.id.recyclerView);
 
         //définit l'agencement des cellules, ici de façon verticale, comme une ListView
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));

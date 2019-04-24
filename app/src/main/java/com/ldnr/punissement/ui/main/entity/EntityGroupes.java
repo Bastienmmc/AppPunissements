@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EntityGroupes {
 
-    public static List list = new ArrayList();
+    private static List list = new ArrayList();
 
     private String title;
 
@@ -19,8 +19,8 @@ public class EntityGroupes {
         return list;
     }
 
-    public static void setList(List list) {
-        EntityGroupes.list = list;
+    public static void setList(List list1) {
+        list = list1;
     }
 
     public String getTitle() {

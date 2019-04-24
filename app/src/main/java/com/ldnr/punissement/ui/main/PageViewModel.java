@@ -7,7 +7,9 @@ import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 import android.support.v7.widget.RecyclerView;
 
+import com.ldnr.punissement.ui.main.adapter.AdapterGroupes;
 import com.ldnr.punissement.ui.main.adapter.AdapterPunissements;
+import com.ldnr.punissement.ui.main.adapter.AdapterStagiaires;
 import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityPunissement;
 import com.ldnr.punissement.ui.main.entity.EntityStagiaires;
@@ -17,8 +19,8 @@ import java.util.List;
 
 public class PageViewModel extends ViewModel {
     private RecyclerView.Adapter adapter1= AdapterPunissements.getInstance(EntityPunissement.getList());
-    private RecyclerView.Adapter adapter2= AdapterPunissements.getInstance(EntityPunissement.getList());
-    private RecyclerView.Adapter adapter3= AdapterPunissements.getInstance(EntityPunissement.getList());
+    private RecyclerView.Adapter adapter2= AdapterStagiaires.getInstance(EntityStagiaires.getList());
+    private RecyclerView.Adapter adapter3= AdapterGroupes.getInstance(EntityGroupes.getList());
 
     private List tab1 = new ArrayList();
     private List tab2 = new ArrayList();

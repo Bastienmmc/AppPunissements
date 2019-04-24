@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EntityStagiaires {
 
-    public static List list = new ArrayList();
+    private static List list = new ArrayList();
     private String title;
 
     public EntityStagiaires(String title) {
@@ -17,8 +17,8 @@ public class EntityStagiaires {
         return list;
     }
 
-    public static void setList(List list) {
-        EntityGroupes.list = list;
+    public static void setList(List list1) {
+        list = list1;
     }
 
     public String getTitle() {
