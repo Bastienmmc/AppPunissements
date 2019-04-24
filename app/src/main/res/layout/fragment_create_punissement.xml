@@ -1,14 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.screens.CreatePunissementFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <ImageButton
+        android:id="@+id/icon_stagiaire"
+        android:layout_width="150dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="28dp"
+        android:background="#60C3FF"
+        android:contentDescription="@string/icon_stagiaire"
+        android:src="@drawable/ic_face_black_48dp"
+        app:layout_constraintEnd_toStartOf="@+id/con_groupe"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/con_groupe"
+        android:layout_width="150dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="48dp"
+        android:background="#5887F9"
+        android:contentDescription="@string/icon_groupe"
+        android:src="@drawable/ic_group_black_48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/icon_stagiaire"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/form_punissement"
+        android:layout_width="0dp"
+        android:layout_height="443dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/icon_stagiaire"
+        app:layout_constraintVertical_bias="0.13">
+
+        <Spinner
+            android:id="@+id/select_entity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_input_form"
+            android:padding="16dp" />
+
+        <Spinner
+            android:id="@+id/select_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_input_form"
+            android:entries="@array/types"
+            android:padding="16dp" />
+
+        <EditText
+            android:id="@+id/libelle"
+            android:layout_width="match_parent"
+            android:layout_height="164dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_input_form"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/libelle"
+            android:inputType="textMultiLine"
+            android:paddingLeft="16dp"
+            android:paddingTop="8dp" />
+
+        <EditText
+            android:id="@+id/lieu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_input_form"
+            android:ems="10"
+            android:hint="@string/lieu"
+            android:inputType="textPersonName"
+            android:padding="16dp" />
+
+
+        <EditText
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_input_form"
+            android:ems="10"
+            android:hint="@string/date"
+            android:inputType="date"
+            android:padding="16dp" />
+
+    </LinearLayout>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:src="@drawable/ic_done_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@color/colorButtonDone"/>
+
+</android.support.constraint.ConstraintLayout>

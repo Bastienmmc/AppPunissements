@@ -24,11 +24,11 @@
 
     <LinearLayout
         android:id="@+id/form_stagiaire"
-        android:layout_width="371dp"
+        android:layout_width="0dp"
         android:layout_height="450dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,8 +40,8 @@
             android:id="@+id/select_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/groupes"
             android:background="@drawable/bg_input_form"
+            android:entries="@array/groupes"
             android:padding="16dp" />
 
         <EditText
@@ -49,9 +49,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:background="@drawable/bg_input_form"
             android:ems="10"
             android:hint="@string/nom_stagiaire"
-            android:background="@drawable/bg_input_form"
             android:inputType="textPersonName"
             android:padding="16dp" />
 
@@ -60,9 +60,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:background="@drawable/bg_input_form"
             android:ems="10"
             android:hint="@string/prenom_stagiaire"
-            android:background="@drawable/bg_input_form"
             android:inputType="textPersonName"
             android:padding="16dp" />
 
@@ -71,9 +71,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:background="@drawable/bg_input_form"
             android:ems="10"
             android:hint="@string/email_stagiaire"
-            android:background="@drawable/bg_input_form"
             android:inputType="textPersonName"
             android:padding="16dp" />
 
@@ -82,9 +82,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:background="@drawable/bg_input_form"
             android:ems="10"
             android:hint="@string/mobile_stagiaire"
-            android:background="@drawable/bg_input_form"
             android:inputType="phone"
             android:padding="16dp" />
 

@@ -11,12 +11,22 @@
     <string name="email_stagiaire">Email</string>
     <string name="mobile_stagiaire">Mobile</string>
     <string name="nom_groupe">Groupe</string>
+    <string name="icon_groupe">icon groupe</string>
+    <string name="icon_stagiaire">icon stagiaire</string>
+    <string name="lieu">Lieu</string>
+    <string name="date">Date</string>
+    <string name="libelle">Libelle</string>
 
     <string-array name="groupes">
         <item>Groupe 1</item>
         <item>Groupe 2</item>
         <item>Groupe 3</item>
         <item>Groupe 4</item>
+    </string-array>
+
+    <string-array name="types">
+        <item>Plat salé</item>
+        <item>Plat sucré</item>
     </string-array>
 
 </resources>

@@ -12,7 +12,7 @@ public interface IDaoHelper {
 
     public void delete(IEntity object);
 
-    public List getList();
+    //public List getList();
 
-    public IEntity getElement(int i);
+    //public IEntity getElement(int i);
 }
