@@ -1,6 +1,11 @@
 package com.ldnr.punissement.ui.main;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -8,16 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.support.annotation.Nullable;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 
 import com.ldnr.punissement.R;
 import com.ldnr.punissement.ui.main.entity.EntityPunissement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +27,7 @@ public class PlaceholderFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     private PageViewModel pageViewModel;
+    private RecyclerView recyclerView;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -48,11 +48,6 @@ public class PlaceholderFragment extends Fragment {
         pageViewModel.setIndex(index);
     }
 
-
-    private RecyclerView recyclerView;
-
-
-
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -60,7 +55,7 @@ public class PlaceholderFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         final TextView textView = root.findViewById(R.id.section_label);
 
-       // final RecyclerView recyclerView1 = root.findViewById(R.id.recyclerView);
+        // final RecyclerView recyclerView1 = root.findViewById(R.id.recyclerView);
         recyclerView = this.getView().findViewById(R.id.recyclerView);
 
         //définit l'agencement des cellules, ici de façon verticale, comme une ListView
@@ -77,10 +72,10 @@ public class PlaceholderFragment extends Fragment {
         pageViewModel.getText().observe(this, new Observer<List>() {
             @Override
             public void onChanged(@Nullable List s) {
-                try{
+                try {
                     EntityPunissement b = ((EntityPunissement) s.get(0));
                     textView.setText(b.title);
-                }catch(Exception e){
+                } catch (Exception e) {
                     Log.d("testing", "Erreur" + e.getMessage());
                     textView.setText(e.getMessage() + s.get(0));
 

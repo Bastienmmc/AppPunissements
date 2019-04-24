@@ -19,11 +19,11 @@ public class EntityGroupes {
         return list;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
     public static void setList(List list) {
         EntityGroupes.list = list;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }

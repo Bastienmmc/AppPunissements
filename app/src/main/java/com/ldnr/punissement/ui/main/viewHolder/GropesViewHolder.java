@@ -8,7 +8,7 @@ import com.ldnr.punissement.R;
 import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 
 
-public class GropesViewHolder extends RecyclerView.ViewHolder{
+public class GropesViewHolder extends RecyclerView.ViewHolder {
 
     private TextView textViewView;
 
@@ -21,7 +21,7 @@ public class GropesViewHolder extends RecyclerView.ViewHolder{
     }
 
     //puis ajouter une fonction pour remplir la cellule en fonction d'un MyObject
-    public void bind(EntityGroupes entityGroupes){
+    public void bind(EntityGroupes entityGroupes) {
         textViewView.setText(entityGroupes.getTitle());
 
     }

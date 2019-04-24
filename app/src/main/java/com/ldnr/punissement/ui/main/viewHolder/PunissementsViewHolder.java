@@ -5,10 +5,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ldnr.punissement.R;
-import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityPunissement;
 
-public class PunissementsViewHolder extends RecyclerView.ViewHolder{
+public class PunissementsViewHolder extends RecyclerView.ViewHolder {
 
     private TextView textViewView;
 
@@ -21,7 +20,7 @@ public class PunissementsViewHolder extends RecyclerView.ViewHolder{
     }
 
     //puis ajouter une fonction pour remplir la cellule en fonction d'un MyObject
-    public void bind(EntityPunissement entityPunissement){
+    public void bind(EntityPunissement entityPunissement) {
         textViewView.setText(entityPunissement.getTitle());
 
     }

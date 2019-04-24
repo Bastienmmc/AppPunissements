@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ldnr.punissement.R;
-import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityPunissement;
 import com.ldnr.punissement.ui.main.viewHolder.PunissementsViewHolder;
 
@@ -22,7 +21,7 @@ public class AdapterPunissements extends RecyclerView.Adapter<PunissementsViewHo
 
     @Override
     public PunissementsViewHolder onCreateViewHolder(ViewGroup viewGroup, int itemType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_punissement,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_punissement, viewGroup, false);
         return new PunissementsViewHolder(view);
     }
 

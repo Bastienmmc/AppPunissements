@@ -2,7 +2,6 @@ package com.ldnr.punissement.ui.main.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 public class EntityPunissement {
 
@@ -19,11 +18,12 @@ public class EntityPunissement {
         list.add(new EntityPunissement("punissements"));
         return list;
     }
-    public String getTitle() {
-        return title;
-    }
 
     public static void setList(List list) {
         EntityGroupes.list = list;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }

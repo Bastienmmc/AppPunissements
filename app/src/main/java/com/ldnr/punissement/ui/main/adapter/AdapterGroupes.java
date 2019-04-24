@@ -21,7 +21,7 @@ public class AdapterGroupes extends RecyclerView.Adapter<GropesViewHolder> {
 
     @Override
     public GropesViewHolder onCreateViewHolder(ViewGroup viewGroup, int itemType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_groupe,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_groupe, viewGroup, false);
         return new GropesViewHolder(view);
     }
 
