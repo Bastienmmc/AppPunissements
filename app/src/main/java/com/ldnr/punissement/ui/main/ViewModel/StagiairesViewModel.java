@@ -5,6 +5,9 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.view.View;
 import com.ldnr.punissement.ui.main.RecyclerItemClickListener;
 import com.ldnr.punissement.ui.main.adapter.AdapterStagiaires;
 import com.ldnr.punissement.ui.main.entity.EntityStagiaires;
+import com.ldnr.punissement.ui.main.screens.CreateActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,5 +81,14 @@ public class StagiairesViewModel extends ViewModel implements IViewModel {
             }
         };
 
+    }
+    public void openCreateActivity(View view,int tab , int pos) {
+        Bundle dataBundle = new Bundle();
+        dataBundle.putInt("pos_tab", tab);  //1,2,3
+        dataBundle.putInt("pos_list", pos);  //-1 if for new data
+        Context context = view.getContext();
+        Intent openIntent = new Intent(context, CreateActivity.class);
+        openIntent.putExtras(dataBundle);
+        context.startActivity(openIntent);
     }
 }
