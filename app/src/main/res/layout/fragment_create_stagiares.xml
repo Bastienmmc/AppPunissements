@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background=""
+    tools:context=".ui.main.screens.CreateStagiaresFragment">
+
+
+    <ImageButton
+        android:id="@+id/photo_stagiaire"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:src="@android:drawable/ic_menu_camera"
+        app:layout_constraintBottom_toTopOf="@+id/form_stagiaire"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/form_stagiaire"
+        android:layout_width="371dp"
+        android:layout_height="450dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Spinner
+            android:id="@+id/select_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/groupes"
+            android:background="@drawable/bg_input_form"
+            android:padding="16dp" />
+
+        <EditText
+            android:id="@+id/nom_stagiaire"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="@string/nom_stagiaire"
+            android:background="@drawable/bg_input_form"
+            android:inputType="textPersonName"
+            android:padding="16dp" />
+
+        <EditText
+            android:id="@+id/prenom_stagiaire"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="@string/prenom_stagiaire"
+            android:background="@drawable/bg_input_form"
+            android:inputType="textPersonName"
+            android:padding="16dp" />
+
+        <EditText
+            android:id="@+id/email_stagiaire"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="@string/email_stagiaire"
+            android:background="@drawable/bg_input_form"
+            android:inputType="textPersonName"
+            android:padding="16dp" />
+
+        <EditText
+            android:id="@+id/mobile_stagiaire"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="@string/mobile_stagiaire"
+            android:background="@drawable/bg_input_form"
+            android:inputType="phone"
+            android:padding="16dp" />
+
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:src="@drawable/ic_done_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@color/colorButtonDone"/>
+
+</android.support.constraint.ConstraintLayout>
