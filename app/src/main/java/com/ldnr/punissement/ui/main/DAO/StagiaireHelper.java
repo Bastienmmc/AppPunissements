@@ -52,7 +52,7 @@ public class StagiaireHelper extends SQLiteOpenHelper {
 
     // Insertion d'un Stagiaire dans la base de données :
     // MODIFIER NOM OBJET !!!!!!!
-    public void insertStagiaire(EntityStagiaires pStagiaire) {
+    public void insert(EntityStagiaires pStagiaire) {
 
         ContentValues value = new ContentValues();
         value.put(TABLE_STAGIAIRE_COLUMN_NAME, pStagiaire.getName());
@@ -68,7 +68,7 @@ public class StagiaireHelper extends SQLiteOpenHelper {
     }
 
     // Mise à jour d'un stagiaire
-    public void updateStagiaire(EntityStagiaires pStagiaire) {
+    public void update(EntityStagiaires pStagiaire) {
         ContentValues value = new ContentValues();
         value.put(TABLE_STAGIAIRE_COLUMN_NAME, pStagiaire.getName());
         value.put(TABLE_STAGIAIRE_COLUMN_FIRSTNAME, pStagiaire.getFirstname());
@@ -81,18 +81,16 @@ public class StagiaireHelper extends SQLiteOpenHelper {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     // Suppression Stagiaire
 
-    public void deleteCity(EntityStagiaires pStagiaire) {
+    public void delete(EntityStagiaires pStagiaire) {
         try {
             dbWrite.delete(TABLE_STAGIAIRE_NAME, TABLE_STAGIAIRE_COLUMN_ID + " = ?",
                     new String[]{String.valueOf(pStagiaire.getId())});
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
     }
 }

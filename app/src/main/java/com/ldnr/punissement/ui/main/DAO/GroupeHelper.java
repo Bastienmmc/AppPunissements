@@ -50,6 +50,7 @@ public class GroupeHelper extends SQLiteOpenHelper {
 
     // Insertion d'un Groupe dans la base de données :
     // MODIFIER NOM OBJET !!!!!!!
+
     public void insert(EntityGroupes pGroupe) {
 
         ContentValues value = new ContentValues();
@@ -65,6 +66,7 @@ public class GroupeHelper extends SQLiteOpenHelper {
     }
 
     // Mise à jour d'un stagiaire
+
     public void update(EntityGroupes pGroupe) {
         ContentValues value = new ContentValues();
         value.put(TABLE_GROUPE_COLUMN_LIBELLE, pGroupe.getLibelle_groupe());

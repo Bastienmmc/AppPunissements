@@ -55,7 +55,9 @@ public class PunitionHelper extends SQLiteOpenHelper {
 
     // Insertion d'une punition dans la base de données :
     // MODIFIER NOM OBJET !!!!!!!
-    public void insertStagiaire(EntityPunissement pPunition) {
+
+    public void insert(EntityPunissement pPunition) {
+
 
         ContentValues value = new ContentValues();
         value.put(TABLE_PUNITION_COLUMN_TITLE, pPunition.getTitle());
@@ -73,14 +75,13 @@ public class PunitionHelper extends SQLiteOpenHelper {
     }
 
     // Mise à jour d'un stagiaire
-    public void updateStagiaire(EntityPunissement pPunition) {
+    public void update(EntityPunissement pPunition) {
         ContentValues value = new ContentValues();
         value.put(TABLE_PUNITION_COLUMN_TITLE, pPunition.getTitle());
         value.put(TABLE_PUNITION_COLUMN_DESCRIPTION, pPunition.getDescription());
         value.put(TABLE_PUNITION_COLUMN_ID_TYPE, pPunition.getId_type());
         value.put(TABLE_PUNITION_COLUMN_ID_STAGIAIRE, pPunition.getId_stagiaire());
         value.put(TABLE_PUNITION_COLUMN_ID_GROUPE, pPunition.getId_groupe());
-
 
         try {
             dbWrite.update(TABLE_PUNITION_NAME, value, TABLE_PUNITION_COLUMN_ID + " = ?", new String[]{String.valueOf(pPunition.getId())});
@@ -92,14 +93,14 @@ public class PunitionHelper extends SQLiteOpenHelper {
 
     // Suppression Stagiaire
 
-    public void deleteCity(EntityPunissement pPunition) {
+    public void delete(EntityPunissement pPunition) {
+
         try {
           dbWrite.delete(TABLE_PUNITION_NAME, TABLE_PUNITION_COLUMN_ID + " = ?",
                     new String[]{String.valueOf(pPunition.getId())});
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
 }
