@@ -3,7 +3,7 @@ package com.ldnr.punissement.ui.main.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityStagiaires {
+public class EntityStagiaires  implements IEntity{
 
     private static List<EntityStagiaires> list = new ArrayList();
 

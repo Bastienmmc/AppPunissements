@@ -5,7 +5,7 @@ import android.content.ContentValues;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityPunissement {
+public class EntityPunissement implements IEntity {
 
     private static List<EntityPunissement> list = new ArrayList();
 

@@ -7,12 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.ldnr.punissement.ui.main.entity.EntityTypePunition;
+import com.ldnr.punissement.ui.main.entity.IEntity;
 
-public class TypePunitionHelper extends SQLiteOpenHelper {
+public class TypePunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
 
     private static final String DATABASE_NAME = "punissements.db";
 
-       /* type Punition*/
+    /* type Punition*/
     private static final String TABLE_TYPE_PUNITION_NAME = "type_punition";
     private static final String TABLE_TYPE_PUNITION_COLUMN_ID = "id_type_punition";
     private static final String TABLE_TYPE_PUNITION_COLUMN_TITLE = "title_type_punition";
@@ -23,7 +24,7 @@ public class TypePunitionHelper extends SQLiteOpenHelper {
     private SQLiteDatabase dbWrite = this.getWritableDatabase();
     // private SQLiteDatabase dbRead = this.getReadableDatabase();
 
-        // Constructeur
+    // Constructeur
     public TypePunitionHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
@@ -48,15 +49,14 @@ public class TypePunitionHelper extends SQLiteOpenHelper {
 
     // Insertion d'un Groupe dans la base de données :
     // MODIFIER NOM OBJET !!!!!!!
-
-    public void insert(EntityTypePunition typePunition) {
-
-        ContentValues content = new ContentValues();
-        content.put(TABLE_TYPE_PUNITION_COLUMN_TITLE, typePunition.getTitle());
-        content.put(TABLE_TYPE_PUNITION_COLUMN_DESCRIPTION, typePunition.getDescription());
-
-
+    @Override
+    public void insert(IEntity iEntity) {
         try {
+            EntityTypePunition typePunition = (EntityTypePunition) iEntity;
+            ContentValues content = new ContentValues();
+            content.put(TABLE_TYPE_PUNITION_COLUMN_TITLE, typePunition.getTitle());
+            content.put(TABLE_TYPE_PUNITION_COLUMN_DESCRIPTION, typePunition.getDescription());
+
             dbWrite.insertOrThrow(TABLE_TYPE_PUNITION_NAME, null, content);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -64,24 +64,29 @@ public class TypePunitionHelper extends SQLiteOpenHelper {
     }
 
     // Mise à jour d'un type de punition
-    public void update(EntityTypePunition typePunition) {
-        ContentValues values = new ContentValues();
-        values.put(TABLE_TYPE_PUNITION_COLUMN_TITLE, typePunition.getTitle());
-        values.put(TABLE_TYPE_PUNITION_COLUMN_DESCRIPTION, typePunition.getDescription());
+    @Override
+    public void update(IEntity iEntity) {
 
-
-        // lancement mise à jour
         try {
-        dbWrite.update(TABLE_TYPE_PUNITION_NAME, values, TABLE_TYPE_PUNITION_COLUMN_ID + " = ?", new String[]{String.valueOf(typePunition.getId())});
+            EntityTypePunition typePunition = (EntityTypePunition) iEntity;
+            ContentValues values = new ContentValues();
+            values.put(TABLE_TYPE_PUNITION_COLUMN_TITLE, typePunition.getTitle());
+            values.put(TABLE_TYPE_PUNITION_COLUMN_DESCRIPTION, typePunition.getDescription());
+
+
+            // lancement mise à jour
+
+            dbWrite.update(TABLE_TYPE_PUNITION_NAME, values, TABLE_TYPE_PUNITION_COLUMN_ID + " = ?", new String[]{String.valueOf(typePunition.getId())});
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
     // Suppression type de punition
-
-    public void delete(EntityTypePunition typePunition) {
-        try{
+    @Override
+    public void delete(IEntity iEntity) {
+        try {
+            EntityTypePunition typePunition = (EntityTypePunition) iEntity;
             dbWrite.delete(TABLE_TYPE_PUNITION_NAME, TABLE_TYPE_PUNITION_COLUMN_ID + " = ?",
                     new String[]{String.valueOf(typePunition.getId())});
         } catch (SQLException e) {

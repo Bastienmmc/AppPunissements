@@ -18,24 +18,7 @@ public interface IViewModel {
 
     public RecyclerView.Adapter getAdapter();
 
-
     public RecyclerItemClickListener.OnItemClickListener getTouchListenerFunction();
-
-
-/*
-    recyclerView.addOnItemTouchListener(
-            new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-        @Override
-        public void onItemClick(View view, int position) {
-            openAddActivity(position);
-        }
-
-        @Override
-        public void onLongItemClick(View view, int position) {
-            openAddActivity(position);
-        }
-    })
-            );*/
 
 
 }

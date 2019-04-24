@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class EntityTypePunition {
+public class EntityTypePunition implements IEntity  {
 
     private static List<EntityTypePunition> list = new ArrayList();
     private String title;

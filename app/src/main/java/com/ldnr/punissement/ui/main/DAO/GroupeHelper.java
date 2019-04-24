@@ -7,12 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.ldnr.punissement.ui.main.entity.EntityGroupes;
+import com.ldnr.punissement.ui.main.entity.IEntity;
 
-public class GroupeHelper extends SQLiteOpenHelper {
+public class GroupeHelper extends SQLiteOpenHelper implements IDaoHelper {
 
     private static final String DATABASE_NAME = "punissements.db";
 
-       /* table Groupe*/
+    /* table Groupe*/
     private static final String TABLE_GROUPE_NAME = "groupe";
 
     private static final String TABLE_GROUPE_COLUMN_ID = "id_groupe";
@@ -50,9 +51,9 @@ public class GroupeHelper extends SQLiteOpenHelper {
 
     // Insertion d'un Groupe dans la base de données :
     // MODIFIER NOM OBJET !!!!!!!
-
-    public void insert(EntityGroupes pGroupe) {
-
+    @Override
+    public void insert(IEntity iEntity) {
+        EntityGroupes pGroupe = (EntityGroupes) iEntity;
         ContentValues value = new ContentValues();
         value.put(TABLE_GROUPE_COLUMN_LIBELLE, pGroupe.getLibelle_groupe());
         value.put(TABLE_GROUPE_COLUMN_PATH_PHOTO, pGroupe.getPath_photo_groupe());
@@ -66,8 +67,9 @@ public class GroupeHelper extends SQLiteOpenHelper {
     }
 
     // Mise à jour d'un stagiaire
-
-    public void update(EntityGroupes pGroupe) {
+    @Override
+    public void update(IEntity iEntity) {
+        EntityGroupes pGroupe = (EntityGroupes) iEntity;
         ContentValues value = new ContentValues();
         value.put(TABLE_GROUPE_COLUMN_LIBELLE, pGroupe.getLibelle_groupe());
         value.put(TABLE_GROUPE_COLUMN_PATH_PHOTO, pGroupe.getPath_photo_groupe());
@@ -82,10 +84,11 @@ public class GroupeHelper extends SQLiteOpenHelper {
 
     }
 
-    // Suppression Stagiaire
 
-    public void delete(EntityGroupes pGroupe) {
+    @Override
+    public void delete(IEntity iEntity) {
         try {
+            EntityGroupes pGroupe = (EntityGroupes) iEntity;
             dbWrite.delete(TABLE_GROUPE_NAME, TABLE_GROUPE_COLUMN_ID + " = ?",
                     new String[]{String.valueOf(pGroupe.getId())});
         } catch (SQLException e) {

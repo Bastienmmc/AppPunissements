@@ -7,7 +7,7 @@ import java.util.List;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
-public class EntityGroupes {
+public class EntityGroupes implements IEntity {
 
     private static List<EntityGroupes> list = new ArrayList();
    // private static LiveData<EntityGroupes> list1 = new ArrayList();
@@ -39,9 +39,9 @@ public class EntityGroupes {
     }
 
     public static List<EntityGroupes> getList() {
-        //list.add(new EntityGroupes("groupes"));
         return list;
     }
+
     public static void addElement(EntityGroupes el){
         list.add(el);
     }

@@ -7,8 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.ldnr.punissement.ui.main.entity.EntityStagiaires;
+import com.ldnr.punissement.ui.main.entity.IEntity;
 
-public class StagiaireHelper extends SQLiteOpenHelper {
+public class StagiaireHelper extends SQLiteOpenHelper implements IDaoHelper {
 
     private static final String DATABASE_NAME = "punissements.db";
 
@@ -52,15 +53,17 @@ public class StagiaireHelper extends SQLiteOpenHelper {
 
     // Insertion d'un Stagiaire dans la base de données :
     // MODIFIER NOM OBJET !!!!!!!
-    public void insert(EntityStagiaires pStagiaire) {
-
-        ContentValues value = new ContentValues();
-        value.put(TABLE_STAGIAIRE_COLUMN_NAME, pStagiaire.getName());
-        value.put(TABLE_STAGIAIRE_COLUMN_FIRSTNAME, pStagiaire.getFirstname());
-        value.put(TABLE_STAGIAIRE_COLUMN_PATH_PHOTO, pStagiaire.getPath_photo());
-        value.put(TABLE_STAGIAIRE_COLUMN_ID_GROUPE, pStagiaire.getId_groupe());
-
+    @Override
+    public void insert(IEntity iEntity) {
         try {
+            EntityStagiaires pStagiaire = (EntityStagiaires) iEntity;
+            ContentValues value = new ContentValues();
+            value.put(TABLE_STAGIAIRE_COLUMN_NAME, pStagiaire.getName());
+            value.put(TABLE_STAGIAIRE_COLUMN_FIRSTNAME, pStagiaire.getFirstname());
+            value.put(TABLE_STAGIAIRE_COLUMN_PATH_PHOTO, pStagiaire.getPath_photo());
+            value.put(TABLE_STAGIAIRE_COLUMN_ID_GROUPE, pStagiaire.getId_groupe());
+
+
             dbWrite.insertOrThrow(TABLE_STAGIAIRE_NAME, null, value);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -68,14 +71,17 @@ public class StagiaireHelper extends SQLiteOpenHelper {
     }
 
     // Mise à jour d'un stagiaire
-    public void update(EntityStagiaires pStagiaire) {
-        ContentValues value = new ContentValues();
-        value.put(TABLE_STAGIAIRE_COLUMN_NAME, pStagiaire.getName());
-        value.put(TABLE_STAGIAIRE_COLUMN_FIRSTNAME, pStagiaire.getFirstname());
-        value.put(TABLE_STAGIAIRE_COLUMN_PATH_PHOTO, pStagiaire.getPath_photo());
-        value.put(TABLE_STAGIAIRE_COLUMN_ID_GROUPE, pStagiaire.getId_groupe());
-
+    @Override
+    public void update(IEntity iEntity) {
         try {
+            EntityStagiaires pStagiaire = (EntityStagiaires) iEntity;
+            ContentValues value = new ContentValues();
+            value.put(TABLE_STAGIAIRE_COLUMN_NAME, pStagiaire.getName());
+            value.put(TABLE_STAGIAIRE_COLUMN_FIRSTNAME, pStagiaire.getFirstname());
+            value.put(TABLE_STAGIAIRE_COLUMN_PATH_PHOTO, pStagiaire.getPath_photo());
+            value.put(TABLE_STAGIAIRE_COLUMN_ID_GROUPE, pStagiaire.getId_groupe());
+
+
             // lancement mise à jour
             dbWrite.update(TABLE_STAGIAIRE_NAME, value, TABLE_STAGIAIRE_COLUMN_ID + " = ?", new String[]{String.valueOf(pStagiaire.getId())});
         } catch (SQLException e) {
@@ -84,9 +90,11 @@ public class StagiaireHelper extends SQLiteOpenHelper {
     }
 
     // Suppression Stagiaire
+    @Override
+    public void delete(IEntity iEntity) {
 
-    public void delete(EntityStagiaires pStagiaire) {
         try {
+            EntityStagiaires pStagiaire = (EntityStagiaires) iEntity;
             dbWrite.delete(TABLE_STAGIAIRE_NAME, TABLE_STAGIAIRE_COLUMN_ID + " = ?",
                     new String[]{String.valueOf(pStagiaire.getId())});
         } catch (SQLException e) {

@@ -27,4 +27,6 @@ public class CreateStagiaresFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_create_stagiares, container, false);
     }
 
+
+
 }
