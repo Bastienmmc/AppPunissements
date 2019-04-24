@@ -12,6 +12,14 @@ import com.ldnr.punissement.ui.main.viewHolder.GropesViewHolder;
 import java.util.List;
 
 public class AdapterGroupes extends RecyclerView.Adapter<GropesViewHolder> {
+    public static AdapterGroupes instance;
+
+    public static AdapterGroupes getInstance(List<EntityGroupes> list){
+        if (instance == null){
+            instance=new AdapterGroupes(list);
+        }
+        return instance;
+    }
 
     List<EntityGroupes> list;
 

@@ -66,15 +66,19 @@ public class PlaceholderFragment extends Fragment {
 
         //puis créer un MyAdapter, lui fournir notre liste de villes.
         //cet adapter servira à remplir notre recyclerview
-        recyclerView.setAdapter(new MyAdapter(cities));
+       // recyclerView.setAdapter(new MyAdapter(cities));
 
 
         pageViewModel.getText().observe(this, new Observer<List>() {
             @Override
             public void onChanged(@Nullable List s) {
+
                 try {
-                    EntityPunissement b = ((EntityPunissement) s.get(0));
-                    textView.setText(b.title);
+                    recyclerView.setAdapter((RecyclerView.Adapter)s.get(0));
+
+                   // EntityPunissement b = ((EntityPunissement) s.get(0));
+                   // textView.setText(b.title);
+
                 } catch (Exception e) {
                     Log.d("testing", "Erreur" + e.getMessage());
                     textView.setText(e.getMessage() + s.get(0));
