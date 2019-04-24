@@ -17,6 +17,16 @@ public class EntityPunissement implements IEntity {
     private int id_stagiaire=0;
     private int id_groupe=0;
 
+
+    public EntityPunissement(int id, String title, String description, int id_type, int id_stagiaire, int id_groupe) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.id_type = id_type;
+        this.id_stagiaire = id_stagiaire;
+        this.id_groupe = id_groupe;
+    }
+
     public String getDescription() {
         return description;
     }
