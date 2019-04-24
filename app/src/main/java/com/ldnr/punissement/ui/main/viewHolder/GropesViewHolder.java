@@ -22,7 +22,7 @@ public class GropesViewHolder extends RecyclerView.ViewHolder {
 
     //puis ajouter une fonction pour remplir la cellule en fonction d'un MyObject
     public void bind(EntityGroupes entityGroupes) {
-        textViewView.setText(entityGroupes.getTitle());
+        textViewView.setText(entityGroupes.getLibelle_groupe());
 
     }
 }

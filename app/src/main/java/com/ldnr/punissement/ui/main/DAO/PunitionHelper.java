@@ -6,6 +6,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.ldnr.punissement.ui.main.entity.EntityPunissement;
+
 public class PunitionHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "punissements.db";
@@ -53,42 +55,51 @@ public class PunitionHelper extends SQLiteOpenHelper {
 
     // Insertion d'une punition dans la base de données :
     // MODIFIER NOM OBJET !!!!!!!
-    public void insertStagiaire(PunitionObject pGroupe) {
+    public void insertStagiaire(EntityPunissement pPunition) {
 
-        ContentValues content = new ContentValues();
-        content.put(TABLE_PUNITION_COLUMN_TITLE, pGroupe.getText());
-        content.put(TABLE_PUNITION_COLUMN_DESCRIPTION, pGroupe.getText());
-        content.put(TABLE_PUNITION_COLUMN_ID_TYPE, pGroupe.getInt());
-        content.put(TABLE_PUNITION_COLUMN_ID_STAGIAIRE, pGroupe.getInt());
-        content.put(TABLE_PUNITION_COLUMN_ID_GROUPE, pGroupe.getInt());
+        ContentValues value = new ContentValues();
+        value.put(TABLE_PUNITION_COLUMN_TITLE, pPunition.getTitle());
+        value.put(TABLE_PUNITION_COLUMN_DESCRIPTION, pPunition.getDescription());
+        value.put(TABLE_PUNITION_COLUMN_ID_TYPE, pPunition.getId_type());
+        value.put(TABLE_PUNITION_COLUMN_ID_STAGIAIRE, pPunition.getId_stagiaire());
+        value.put(TABLE_PUNITION_COLUMN_ID_GROUPE, pPunition.getId_groupe());
 
 
         try {
-            dbWrite.insertOrThrow(TABLE_PUNITION_NAME, null, content);
+            dbWrite.insertOrThrow(TABLE_PUNITION_NAME, null, value);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
     // Mise à jour d'un stagiaire
-    public void updateStagiaire(PunitionObject pPunition) {
-        ContentValues values = new ContentValues();
-        values.put(TABLE_PUNITION_COLUMN_TITLE, pPunition.getText());
-        values.put(TABLE_PUNITION_COLUMN_DESCRIPTION, pPunition.getText());
-        values.put(TABLE_PUNITION_COLUMN_ID_TYPE, pPunition.getInt());
-        values.put(TABLE_PUNITION_COLUMN_ID_STAGIAIRE, pPunition.getInt());
-        values.put(TABLE_PUNITION_COLUMN_ID_GROUPE, pPunition.getInt());
+    public void updateStagiaire(EntityPunissement pPunition) {
+        ContentValues value = new ContentValues();
+        value.put(TABLE_PUNITION_COLUMN_TITLE, pPunition.getTitle());
+        value.put(TABLE_PUNITION_COLUMN_DESCRIPTION, pPunition.getDescription());
+        value.put(TABLE_PUNITION_COLUMN_ID_TYPE, pPunition.getId_type());
+        value.put(TABLE_PUNITION_COLUMN_ID_STAGIAIRE, pPunition.getId_stagiaire());
+        value.put(TABLE_PUNITION_COLUMN_ID_GROUPE, pPunition.getId_groupe());
 
 
-        // lancement mise à jour
-        dbWrite.update(TABLE_PUNITION_NAME, values, TABLE_PUNITION_COLUMN_ID + " = ?", new String[]{String.valueOf(pPunition.getId())});
+        try {
+            dbWrite.update(TABLE_PUNITION_NAME, value, TABLE_PUNITION_COLUMN_ID + " = ?", new String[]{String.valueOf(pPunition.getId())});
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     // Suppression Stagiaire
 
-    public void deleteCity(PunitionObject pGroupe) {
-        dbWrite.delete(TABLE_PUNITION_NAME, TABLE_PUNITION_COLUMN_ID + " = ?",
-                new String[]{String.valueOf(pGroupe.getId())});
+    public void deleteCity(EntityPunissement pPunition) {
+        try {
+          dbWrite.delete(TABLE_PUNITION_NAME, TABLE_PUNITION_COLUMN_ID + " = ?",
+                    new String[]{String.valueOf(pPunition.getId())});
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
 }

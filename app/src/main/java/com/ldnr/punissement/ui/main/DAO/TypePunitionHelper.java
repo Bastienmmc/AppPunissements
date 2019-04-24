@@ -6,6 +6,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.ldnr.punissement.ui.main.entity.EntityTypePunition;
+
 public class TypePunitionHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "punissements.db";
@@ -46,11 +48,11 @@ public class TypePunitionHelper extends SQLiteOpenHelper {
 
     // Insertion d'un Groupe dans la base de données :
     // MODIFIER NOM OBJET !!!!!!!
-    public void insertStagiaire(TypePunitionObject pTypePunition) {
+    public void insert(EntityTypePunition typePunition) {
 
         ContentValues content = new ContentValues();
-        content.put(TABLE_TYPE_PUNITION_COLUMN_TITLE, pTypePunition.getText());
-        content.put(TABLE_TYPE_PUNITION_COLUMN_DESCRIPTION, pTypePunition.getText());
+        content.put(TABLE_TYPE_PUNITION_COLUMN_TITLE, typePunition.getTitle());
+        content.put(TABLE_TYPE_PUNITION_COLUMN_DESCRIPTION, typePunition.getDescription());
 
 
         try {
@@ -61,21 +63,30 @@ public class TypePunitionHelper extends SQLiteOpenHelper {
     }
 
     // Mise à jour d'un type de punition
-    public void updateStagiaire(TypePunitionObject pTypePunition) {
+    public void update(EntityTypePunition typePunition) {
         ContentValues values = new ContentValues();
-        values.put(TABLE_TYPE_PUNITION_COLUMN_TITLE, pTypePunition.getText());
-        values.put(TABLE_TYPE_PUNITION_COLUMN_DESCRIPTION, pTypePunition.getImageUrl());
+        values.put(TABLE_TYPE_PUNITION_COLUMN_TITLE, typePunition.getTitle());
+        values.put(TABLE_TYPE_PUNITION_COLUMN_DESCRIPTION, typePunition.getDescription());
 
 
         // lancement mise à jour
-        dbWrite.update(TABLE_TYPE_PUNITION_NAME, values, TABLE_TYPE_PUNITION_COLUMN_ID + " = ?", new String[]{String.valueOf(pTypePunition.getId())});
+        try {
+        dbWrite.update(TABLE_TYPE_PUNITION_NAME, values, TABLE_TYPE_PUNITION_COLUMN_ID + " = ?", new String[]{String.valueOf(typePunition.getId())});
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     // Suppression type de punition
 
-    public void deleteCity(TypePunitionObject pGroupe) {
-        dbWrite.delete(TABLE_TYPE_PUNITION_NAME, TABLE_TYPE_PUNITION_COLUMN_ID + " = ?",
-                new String[]{String.valueOf(pTypePunition.getId())});
+    public void delete(EntityTypePunition typePunition) {
+        try{
+            dbWrite.delete(TABLE_TYPE_PUNITION_NAME, TABLE_TYPE_PUNITION_COLUMN_ID + " = ?",
+                    new String[]{String.valueOf(typePunition.getId())});
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
 }

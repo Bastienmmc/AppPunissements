@@ -6,10 +6,47 @@ import java.util.List;
 public class EntityStagiaires {
 
     private static List<EntityStagiaires> list = new ArrayList();
-    private String title;
 
-    public EntityStagiaires(String title) {
-        this.title = title;
+    private int id;
+    private String name;
+    private String firstname;
+    private String path_photo;
+    private int id_groupe;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setPath_photo(String path_photo) {
+        this.path_photo = path_photo;
+    }
+
+    public void setId_groupe(int id_groupe) {
+        this.id_groupe = id_groupe;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getPath_photo() {
+        return path_photo;
+    }
+
+    public int getId_groupe() {
+        return id_groupe;
+    }
+
+    public EntityStagiaires(String name) {
+        this.name = name;
     }
 
     public static List<EntityStagiaires> getList() {
@@ -24,7 +61,11 @@ public class EntityStagiaires {
         list = list1;
     }
 
-    public String getTitle() {
-        return title;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

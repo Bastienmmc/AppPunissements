@@ -22,7 +22,7 @@ public class StagiairesViewHolder extends RecyclerView.ViewHolder {
 
     //puis ajouter une fonction pour remplir la cellule en fonction d'un MyObject
     public void bind(EntityStagiaires entityStagiaires) {
-        textViewView.setText(entityStagiaires.getTitle());
+        textViewView.setText(entityStagiaires.getName());
 
     }
 }

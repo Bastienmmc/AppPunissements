@@ -12,15 +12,30 @@ public class EntityGroupes {
     private static List<EntityGroupes> list = new ArrayList();
    // private static LiveData<EntityGroupes> list1 = new ArrayList();
     private static MutableLiveData<List> mFavs= new MutableLiveData<>();
-    private String title;
+
+    private int id;
+    private String libelle_groupe;
+    private String path_photo_groupe;
 
     public static MutableLiveData<List>getMutableLiveData(){
         mFavs.setValue(list);
         return mFavs;
     }
 
-    public EntityGroupes(String title) {
-        this.title = title;
+    public String getPath_photo_groupe() {
+        return path_photo_groupe;
+    }
+
+    public void setLibelle_groupe(String libelle_groupe) {
+        this.libelle_groupe = libelle_groupe;
+    }
+
+    public void setPath_photo_groupe(String path_photo_groupe) {
+        this.path_photo_groupe = path_photo_groupe;
+    }
+
+    public EntityGroupes(String libelle_groupe) {
+        this.libelle_groupe = libelle_groupe;
     }
 
     public static List<EntityGroupes> getList() {
@@ -35,7 +50,14 @@ public class EntityGroupes {
         list = list1;
     }
 
-    public String getTitle() {
-        return title;
+    public String getLibelle_groupe() {
+        return libelle_groupe;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

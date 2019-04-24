@@ -6,6 +6,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.ldnr.punissement.ui.main.entity.EntityGroupes;
+
 public class GroupeHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "punissements.db";
@@ -48,36 +50,46 @@ public class GroupeHelper extends SQLiteOpenHelper {
 
     // Insertion d'un Groupe dans la base de données :
     // MODIFIER NOM OBJET !!!!!!!
-    public void insertStagiaire(GroupeObject pGroupe) {
+    public void insert(EntityGroupes pGroupe) {
 
-        ContentValues content = new ContentValues();
-        content.put(TABLE_GROUPE_COLUMN_LIBELLE, pGroupe.getText());
-        content.put(TABLE_GROUPE_COLUMN_PATH_PHOTO, pGroupe.getImageUrl());
-
+        ContentValues value = new ContentValues();
+        value.put(TABLE_GROUPE_COLUMN_LIBELLE, pGroupe.getLibelle_groupe());
+        value.put(TABLE_GROUPE_COLUMN_PATH_PHOTO, pGroupe.getPath_photo_groupe());
 
         try {
-            dbWrite.insertOrThrow(TABLE_GROUPE_NAME, null, content);
+            dbWrite.insertOrThrow(TABLE_GROUPE_NAME, null, value);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
     }
 
     // Mise à jour d'un stagiaire
-    public void updateStagiaire(GroupeObject pGroupe) {
-        ContentValues values = new ContentValues();
-        values.put(TABLE_GROUPE_COLUMN_LIBELLE, pGroupe.getText());
-        values.put(TABLE_GROUPE_COLUMN_PATH_PHOTO, pGroupe.getImageUrl());
+    public void update(EntityGroupes pGroupe) {
+        ContentValues value = new ContentValues();
+        value.put(TABLE_GROUPE_COLUMN_LIBELLE, pGroupe.getLibelle_groupe());
+        value.put(TABLE_GROUPE_COLUMN_PATH_PHOTO, pGroupe.getPath_photo_groupe());
 
+        try {
+            // lancement mise à jour
+            dbWrite.update(TABLE_GROUPE_NAME, value, TABLE_GROUPE_COLUMN_ID + " = ?",
+                    new String[]{String.valueOf(pGroupe.getId())});
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
-        // lancement mise à jour
-        dbWrite.update(TABLE_GROUPE_NAME, values, TABLE_GROUPE_COLUMN_ID + " = ?", new String[]{String.valueOf(pGroupe.getId())});
     }
 
     // Suppression Stagiaire
 
-    public void deleteCity(GroupeObject pGroupe) {
-        dbWrite.delete(TABLE_GROUPE_NAME, TABLE_GROUPE_COLUMN_ID + " = ?",
-                new String[]{String.valueOf(pGroupe.getId())});
+    public void delete(EntityGroupes pGroupe) {
+        try {
+            dbWrite.delete(TABLE_GROUPE_NAME, TABLE_GROUPE_COLUMN_ID + " = ?",
+                    new String[]{String.valueOf(pGroupe.getId())});
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
 }
