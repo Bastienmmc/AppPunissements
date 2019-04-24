@@ -1,6 +1,8 @@
 package com.ldnr.punissement.ui.main;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import com.ldnr.punissement.R;
 import com.ldnr.punissement.ui.main.entity.EntityPunissement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,12 +48,32 @@ public class PlaceholderFragment extends Fragment {
         pageViewModel.setIndex(index);
     }
 
+
+    private RecyclerView recyclerView;
+
+
+
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         final TextView textView = root.findViewById(R.id.section_label);
+
+       // final RecyclerView recyclerView1 = root.findViewById(R.id.recyclerView);
+        recyclerView = this.getView().findViewById(R.id.recyclerView);
+
+        //définit l'agencement des cellules, ici de façon verticale, comme une ListView
+        recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
+
+        //pour adapter en grille comme une RecyclerView, avec 2 cellules par ligne
+        //recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+
+        //puis créer un MyAdapter, lui fournir notre liste de villes.
+        //cet adapter servira à remplir notre recyclerview
+        recyclerView.setAdapter(new MyAdapter(cities));
+
+
         pageViewModel.getText().observe(this, new Observer<List>() {
             @Override
             public void onChanged(@Nullable List s) {

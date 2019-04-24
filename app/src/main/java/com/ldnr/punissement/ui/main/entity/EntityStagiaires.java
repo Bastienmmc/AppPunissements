@@ -6,7 +6,7 @@ import java.util.List;
 public class EntityStagiaires {
 
     public static List list = new ArrayList();
-    public String title;
+    private String title;
 
     public EntityStagiaires(String title) {
         this.title = title;
@@ -15,5 +15,12 @@ public class EntityStagiaires {
     public static List<EntityStagiaires> getList() {
         list.add(new EntityStagiaires("stagiares"));
         return list;
+    }
+    public String getTitle() {
+        return title;
+    }
+
+    public static void setList(List list) {
+        EntityGroupes.list = list;
     }
 }

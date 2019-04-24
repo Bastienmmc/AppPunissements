@@ -8,7 +8,7 @@ public class EntityPunissement {
 
     public static List list = new ArrayList();
 
-    public String title;
+    private String title;
 
     public EntityPunissement(String title) {
         this.title = title;
@@ -18,5 +18,12 @@ public class EntityPunissement {
     public static List<EntityPunissement> getList() {
         list.add(new EntityPunissement("punissements"));
         return list;
+    }
+    public String getTitle() {
+        return title;
+    }
+
+    public static void setList(List list) {
+        EntityGroupes.list = list;
     }
 }
