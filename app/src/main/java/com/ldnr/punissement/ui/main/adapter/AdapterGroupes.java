@@ -35,9 +35,9 @@ public class AdapterGroupes extends RecyclerView.Adapter<GropesViewHolder> {
 
     //c'est ici que nous allons remplir notre cellule avec le texte/image de chaque MyObjects
     @Override
-    public void onBindViewHolder(GropesViewHolder myViewHolder, int position) {
+    public void onBindViewHolder(GropesViewHolder gropesViewHolder, int position) {
         EntityGroupes entityGroupes = list.get(position);
-        myViewHolder.bind(entityGroupes);
+        gropesViewHolder.bind(entityGroupes);
     }
 
     @Override

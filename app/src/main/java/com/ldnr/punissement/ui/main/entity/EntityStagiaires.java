@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EntityStagiaires {
 
-    private static List list = new ArrayList();
+    private static List<EntityStagiaires> list = new ArrayList();
     private String title;
 
     public EntityStagiaires(String title) {
@@ -13,8 +13,11 @@ public class EntityStagiaires {
     }
 
     public static List<EntityStagiaires> getList() {
-        list.add(new EntityStagiaires("stagiares"));
+       // list.add(new EntityStagiaires("stagiares"));
         return list;
+    }
+    public static void addElement(EntityStagiaires el){
+        list.add(el);
     }
 
     public static void setList(List list1) {

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EntityGroupes {
 
-    private static List list = new ArrayList();
+    private static List<EntityGroupes> list = new ArrayList();
 
     private String title;
 
@@ -13,10 +13,12 @@ public class EntityGroupes {
         this.title = title;
     }
 
-
     public static List<EntityGroupes> getList() {
-        list.add(new EntityGroupes("groupes"));
+        //list.add(new EntityGroupes("groupes"));
         return list;
+    }
+    public static void addElement(EntityGroupes el){
+        list.add(el);
     }
 
     public static void setList(List list1) {

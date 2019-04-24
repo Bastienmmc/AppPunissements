@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EntityPunissement {
 
-    private static List list = new ArrayList();
+    private static List<EntityPunissement> list = new ArrayList();
 
     private String title;
 
@@ -15,10 +15,12 @@ public class EntityPunissement {
 
 
     public static List<EntityPunissement> getList() {
-        list.add(new EntityPunissement("punissements"));
         return list;
     }
 
+    public static void addElement(EntityPunissement el){
+        list.add(el);
+    }
     public static void setList(List list1) {
         list = list1;
     }

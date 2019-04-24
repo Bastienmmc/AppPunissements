@@ -18,18 +18,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PageViewModel extends ViewModel {
-    private RecyclerView.Adapter adapter1= AdapterPunissements.getInstance(EntityPunissement.getList());
-    private RecyclerView.Adapter adapter2= AdapterStagiaires.getInstance(EntityStagiaires.getList());
-    private RecyclerView.Adapter adapter3= AdapterGroupes.getInstance(EntityGroupes.getList());
+    public static boolean bool =false;
+
+    private static final RecyclerView.Adapter adapter1= AdapterPunissements.getInstance(EntityPunissement.getList());
+    private static final RecyclerView.Adapter adapter2= AdapterStagiaires.getInstance(EntityStagiaires.getList());
+    private static final RecyclerView.Adapter adapter3= AdapterGroupes.getInstance(EntityGroupes.getList());
 
     private List tab1 = new ArrayList();
     private List tab2 = new ArrayList();
     private List tab3 = new ArrayList();
 
     public PageViewModel(){
+        if (bool==false){
+            EntityPunissement.addElement(new EntityPunissement("punissement"));
+            EntityStagiaires.addElement(new EntityStagiaires("stagiaires"));
+            EntityGroupes.addElement(new EntityGroupes("groupes"));
+
+
+
+            bool=true;
+
+        }
         tab1.add(adapter1);
         tab2.add(adapter2);
         tab3.add(adapter3);
+
+
     }
 
     private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
