@@ -22,6 +22,12 @@ public class EntityGroupes implements IEntity {
         return mFavs;
     }
 
+    public EntityGroupes(int id, String libelle_groupe, String path_photo_groupe) {
+        this.id = id;
+        this.libelle_groupe = libelle_groupe;
+        this.path_photo_groupe = path_photo_groupe;
+    }
+
     public String getPath_photo_groupe() {
         return path_photo_groupe;
     }
