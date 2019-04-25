@@ -69,7 +69,7 @@ public class TypePunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
     }
 
     // Insertion d'un Groupe dans la base de données :
-    // MODIFIER NOM OBJET !!!!!!!
+
     @Override
     public void insert(IEntity iEntity) {
         try {

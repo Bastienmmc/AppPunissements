@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 import com.ldnr.punissement.R;
@@ -118,10 +119,17 @@ public class CreateActivity extends AppCompatActivity {
                 fragmentCreateTypePunition.onActivityResult(requestCode, resultCode, data);
                 break;
             default:
-                Toast.makeText(this, "Error lecture!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Erreur lecture!", Toast.LENGTH_LONG).show();
                 finish();
                 break;
 
         }
+
+
+    }
+
+    public void openDialog(View view) {
+        DialogSendFragment dialogSendFragment = new DialogSendFragment();
+        dialogSendFragment.show(getSupportFragmentManager(), "Dialogue Fragment");
     }
 }

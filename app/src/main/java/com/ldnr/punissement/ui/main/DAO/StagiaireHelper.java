@@ -79,7 +79,7 @@ public class StagiaireHelper extends SQLiteOpenHelper implements IDaoHelper {
     }
 
     // Insertion d'un Stagiaire dans la base de données :
-    // MODIFIER NOM OBJET !!!!!!!
+
     @Override
     public void insert(IEntity iEntity) {
         try {
