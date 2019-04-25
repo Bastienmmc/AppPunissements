@@ -1,6 +1,8 @@
 package com.ldnr.punissement.ui.main.screens;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -147,7 +149,14 @@ public class CreatePunissementFragment extends Fragment {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    save();
+                    // dialogfragment
+                    DialogSendFragment dialogSendFragment = new DialogSendFragment();
+                    Bundle args = new Bundle();
+                    args.putInt("id", 0);
+                    dialogSendFragment.setArguments(args);
+                    dialogSendFragment.show(getFragmentManager(),"Send");
+
+                    //save();
                 }
             });
 

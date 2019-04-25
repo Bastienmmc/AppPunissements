@@ -65,13 +65,14 @@ public class AppActivity extends AppCompatActivity {
 
 
         // A la création de la vue, on vérifie les permissions.
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) !=
-                PackageManager.PERMISSION_GRANTED) {
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) !=
+                PackageManager.PERMISSION_GRANTED)|| (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED)){
             // Si aucune permission, on bloue le bouton, on redemande la permission
             // TODO
             // takePictureButton.setEnabled(false);
             ActivityCompat.requestPermissions(this, new String[] {
-                    Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+                    Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.SEND_SMS }, 0);
         }
 
         setContentView(R.layout.activity_main);

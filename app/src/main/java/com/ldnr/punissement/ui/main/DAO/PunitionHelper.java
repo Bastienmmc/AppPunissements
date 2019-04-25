@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.ldnr.punissement.ui.main.entity.EntityPunissement;
 import com.ldnr.punissement.ui.main.entity.IEntity;
@@ -185,8 +186,15 @@ public class PunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
     public IEntity getElement(int id) {
         try {
             Cursor cursor = dbRead.query(TABLE_PUNITION_NAME,
-                    new String[]{TABLE_PUNITION_COLUMN_ID, TABLE_PUNITION_COLUMN_TITLE, TABLE_PUNITION_COLUMN_DESCRIPTION, TABLE_PUNITION_COLUMN_ID_TYPE, TABLE_PUNITION_COLUMN_ID_STAGIAIRE, TABLE_PUNITION_COLUMN_ID_GROUPE},
-                    TABLE_PUNITION_COLUMN_ID + "=?",
+                    new String[]{TABLE_PUNITION_COLUMN_ID,
+                            TABLE_PUNITION_COLUMN_TITLE,
+                            TABLE_PUNITION_COLUMN_DESCRIPTION,
+                            TABLE_PUNITION_COLUMN_ID_TYPE,
+                            TABLE_PUNITION_COLUMN_ID_STAGIAIRE,
+                            TABLE_PUNITION_COLUMN_ID_GROUPE,
+                            TABLE_PUNITION_COLUMN_LIEU,
+                            TABLE_PUNITION_COLUMN_DATE},
+                    TABLE_PUNITION_COLUMN_ID + " =?",
                     new String[]{String.valueOf(id)}, null, null, null, null);
             if (cursor != null)
                 cursor.moveToFirst();
@@ -202,7 +210,7 @@ public class PunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
             cursor.close();
             return punissement;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            Log.d("testing",e.getMessage());
             return null;
         }
     }
