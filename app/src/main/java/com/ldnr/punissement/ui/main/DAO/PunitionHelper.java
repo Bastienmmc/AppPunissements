@@ -185,7 +185,8 @@ public class PunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
     @Override
     public IEntity getElement(int id) {
         try {
-            Cursor cursor = dbRead.query(TABLE_PUNITION_NAME,
+            Cursor cursor = dbRead.query(
+                    TABLE_PUNITION_NAME /* table */,
                     new String[]{TABLE_PUNITION_COLUMN_ID,
                             TABLE_PUNITION_COLUMN_TITLE,
                             TABLE_PUNITION_COLUMN_DESCRIPTION,
@@ -193,24 +194,33 @@ public class PunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
                             TABLE_PUNITION_COLUMN_ID_STAGIAIRE,
                             TABLE_PUNITION_COLUMN_ID_GROUPE,
                             TABLE_PUNITION_COLUMN_LIEU,
-                            TABLE_PUNITION_COLUMN_DATE},
-                    TABLE_PUNITION_COLUMN_ID + " =?",
-                    new String[]{String.valueOf(id)}, null, null, null, null);
+                            TABLE_PUNITION_COLUMN_DATE} /* columns */,
+                    TABLE_PUNITION_COLUMN_ID + " = ?" /* where or selection */,
+                    new String[]{String.valueOf(id)} /* selectionArgs i.e. value to replace ? */,
+                    null /* groupBy */,
+                    null /* having */,
+                    null /* orderBy */
+            );
+
+
             if (cursor != null)
                 cursor.moveToFirst();
-            EntityPunissement punissement = new EntityPunissement(cursor.getInt(cursor.getColumnIndex(TABLE_PUNITION_COLUMN_ID)),
-                    cursor.getString(cursor.getColumnIndex(TABLE_PUNITION_COLUMN_TITLE)),
-                    cursor.getString(cursor.getColumnIndex(TABLE_PUNITION_COLUMN_DESCRIPTION)),
-                    cursor.getInt(cursor.getColumnIndex(TABLE_PUNITION_COLUMN_ID_TYPE)),
-                    cursor.getInt(cursor.getColumnIndex(TABLE_PUNITION_COLUMN_ID_STAGIAIRE)),
-                    cursor.getInt(cursor.getColumnIndex(TABLE_PUNITION_COLUMN_ID_GROUPE)),
-                    cursor.getString(cursor.getColumnIndex(TABLE_PUNITION_COLUMN_LIEU)),
-                    cursor.getString(cursor.getColumnIndex(TABLE_PUNITION_COLUMN_DATE)));
+            EntityPunissement punissement = new EntityPunissement();
+            punissement.setId(cursor.getInt(cursor.getColumnIndex(TABLE_PUNITION_COLUMN_ID)));
+            punissement.setTitle(cursor.getString(cursor.getColumnIndex(TABLE_PUNITION_COLUMN_TITLE)));
+            punissement.setDescription(cursor.getString(cursor.getColumnIndex(TABLE_PUNITION_COLUMN_DESCRIPTION)));
+            Log.d("testing10", "" + cursor.getInt(cursor.getColumnIndex(TABLE_PUNITION_COLUMN_ID_TYPE)));
+            punissement.setId_type(cursor.getInt(cursor.getColumnIndex(TABLE_PUNITION_COLUMN_ID_TYPE)));
+            // punissement.setId_type(cursor.getInt(cursor.getColumnIndex(TABLE_PUNITION_COLUMN_ID_TYPE)));
+            punissement.setId_stagiaire(cursor.getInt(cursor.getColumnIndex(TABLE_PUNITION_COLUMN_ID_STAGIAIRE)));
+            punissement.setId_groupe(cursor.getInt(cursor.getColumnIndex(TABLE_PUNITION_COLUMN_ID_GROUPE)));
+            punissement.setLieu(cursor.getString(cursor.getColumnIndex(TABLE_PUNITION_COLUMN_LIEU)));
+            punissement.setDate(cursor.getString(cursor.getColumnIndex(TABLE_PUNITION_COLUMN_DATE)));
 
             cursor.close();
             return punissement;
         } catch (SQLException e) {
-            Log.d("testing",e.getMessage());
+            Log.d("testing", "error" + e.getMessage());
             return null;
         }
     }

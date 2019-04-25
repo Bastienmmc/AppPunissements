@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.ldnr.punissement.ui.main.entity.EntityTypePunition;
 import com.ldnr.punissement.ui.main.entity.IEntity;
@@ -161,7 +162,7 @@ public class TypePunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
     @Override
     public IEntity getElement(int id) {
         try {
-            Cursor cursor = dbRead.query(TABLE_TYPE_PUNITION_COLUMN_TITLE,
+            Cursor cursor = dbRead.query(TABLE_TYPE_PUNITION_NAME,
                     new String[]{TABLE_TYPE_PUNITION_COLUMN_ID, TABLE_TYPE_PUNITION_COLUMN_TITLE, TABLE_TYPE_PUNITION_COLUMN_DESCRIPTION},
                     TABLE_TYPE_PUNITION_COLUMN_ID + "=?",
                     new String[]{String.valueOf(id)}, null, null, null, null);
@@ -174,7 +175,7 @@ public class TypePunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
             cursor.close();
             return typePunition;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            Log.d("testing", e.getMessage());
             return null;
         }
     }

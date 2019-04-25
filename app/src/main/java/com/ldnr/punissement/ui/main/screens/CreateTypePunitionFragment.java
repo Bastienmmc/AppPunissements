@@ -13,11 +13,8 @@ import android.widget.Toast;
 
 import com.ldnr.punissement.R;
 import com.ldnr.punissement.ui.main.DAO.TypePunitionHelper;
-import com.ldnr.punissement.ui.main.ViewModel.StagiairesViewModel;
 import com.ldnr.punissement.ui.main.ViewModel.TypePunitionViewModel;
-import com.ldnr.punissement.ui.main.adapter.AdapterGroupes;
 import com.ldnr.punissement.ui.main.adapter.AdapterTypePunition;
-import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityTypePunition;
 
 import java.util.regex.Matcher;

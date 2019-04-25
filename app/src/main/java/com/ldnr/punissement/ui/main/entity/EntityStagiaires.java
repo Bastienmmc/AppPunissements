@@ -13,7 +13,7 @@ public class EntityStagiaires implements IEntity {
     private String path_photo;
     private String mail;
     private String sms;
-    private String strAddToString="";
+    private String strAddToString = "";
     private int id_groupe;
 
 
@@ -25,7 +25,7 @@ public class EntityStagiaires implements IEntity {
         this.mail = mail;
         this.sms = sms;
         this.id_groupe = id_groupe;
-        this.strAddToString="";
+        this.strAddToString = "";
     }
 
     public EntityStagiaires() {
@@ -110,9 +110,10 @@ public class EntityStagiaires implements IEntity {
     }
 
     public String toString() {
-        return this.firstname + " " + this.lastname + " " + this.mail + " " + this.sms + " "+ this.strAddToString;
+        return this.firstname + " " + this.lastname + " " + this.mail + " " + this.sms + " " + this.strAddToString;
     }
-    public void addToString(String str){
+
+    public void addToString(String str) {
         this.strAddToString += str + " ";
     }
 }

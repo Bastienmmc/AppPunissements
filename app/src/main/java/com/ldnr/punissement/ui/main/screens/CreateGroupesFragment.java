@@ -22,7 +22,6 @@ import com.ldnr.punissement.R;
 import com.ldnr.punissement.ui.main.DAO.GroupeHelper;
 import com.ldnr.punissement.ui.main.Services.StorageService;
 import com.ldnr.punissement.ui.main.ViewModel.GroupesViewModel;
-import com.ldnr.punissement.ui.main.ViewModel.StagiairesViewModel;
 import com.ldnr.punissement.ui.main.adapter.AdapterGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 

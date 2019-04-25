@@ -6,7 +6,8 @@ import java.util.List;
 public class EntityPunissement implements IEntity {
 
     private static List<EntityPunissement> list = new ArrayList();
-
+    private EntityStagiaires stagiaires;
+    private EntityGroupes groupes;
 
     private int id;
     private String title;
@@ -29,7 +30,7 @@ public class EntityPunissement implements IEntity {
         this.id_groupe = id_groupe;
         this.lieu = lieu;
         this.date = date;
-        this.strAddToString="";
+        this.strAddToString = "";
     }
 
     public EntityPunissement() {
@@ -119,7 +120,24 @@ public class EntityPunissement implements IEntity {
     public String toString() {
         return this.title + " " + this.description + " " + this.lieu + " " + this.date + " " + this.strAddToString;
     }
-    public void addToString(String str){
+
+    public void addToString(String str) {
         this.strAddToString += str + " ";
+    }
+
+    public EntityStagiaires getStagiaires() {
+        return stagiaires;
+    }
+
+    public void setStagiaires(EntityStagiaires stagiaires) {
+        this.stagiaires = stagiaires;
+    }
+
+    public EntityGroupes getGroupes() {
+        return groupes;
+    }
+
+    public void setGroupes(EntityGroupes groupes) {
+        this.groupes = groupes;
     }
 }

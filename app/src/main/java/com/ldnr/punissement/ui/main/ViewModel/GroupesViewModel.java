@@ -28,11 +28,11 @@ import java.util.regex.Pattern;
 public class GroupesViewModel extends ViewModel implements IViewModel {
     private static RecyclerView.Adapter adapter = AdapterGroupes.getInstance(EntityGroupes.getList());
 
-    public static RecyclerView.Adapter getStaticAdapter(){
-        return adapter;
+    public GroupesViewModel() {
     }
 
-    public GroupesViewModel() {
+    public static RecyclerView.Adapter getStaticAdapter() {
+        return adapter;
     }
 
     private static Activity scanForActivity(Context cont) {
@@ -72,7 +72,7 @@ public class GroupesViewModel extends ViewModel implements IViewModel {
 
             @Override
             public void onLongItemClick(View view, int position) {
-                showActionsDialog(view, 3, position);
+                //showActionsDialog(view, 3, position);
             }
         };
 
