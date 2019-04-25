@@ -101,7 +101,7 @@ public class StagiaireHelper extends SQLiteOpenHelper implements IDaoHelper {
                 pStagiaire.setId(res.getInt(res.getColumnIndex(TABLE_STAGIAIRE_COLUMN_ID)));
             }
         } catch (SQLException e) {
-            Log.d("testing", "#########" + e.getMessage());
+
         }
     }
 

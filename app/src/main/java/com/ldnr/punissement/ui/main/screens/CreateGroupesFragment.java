@@ -162,7 +162,6 @@ public class CreateGroupesFragment extends Fragment {
             this.entityGroupes.setPath_photo_groupe(path_photo);
             if (insert) {
                 GroupeHelper.getInstance(this.getContext()).insert(this.entityGroupes);
-                Log.d("testing", "###################" + this.entityGroupes.getId());
                 EntityGroupes.getList().add(this.entityGroupes);
             } else {
                 GroupeHelper.getInstance(this.getContext()).update(this.entityGroupes);

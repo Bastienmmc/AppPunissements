@@ -37,7 +37,6 @@ public class PunissementsViewHolder extends RecyclerView.ViewHolder {
     //puis ajouter une fonction pour remplir la cellule en fonction d'un MyObject
     public void bind(EntityPunissement entityPunissement) {
         textViewTitle.setText(entityPunissement.getTitle());
-        Log.d("testing", "#################"+entityPunissement.getTitle());
 
         textViewDate.setText(entityPunissement.getDate());
         if (entityPunissement.getId_stagiaire() > 0) {

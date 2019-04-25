@@ -59,7 +59,7 @@ public class CreatePunissementFragment extends Fragment {
 
 
     private FloatingActionButton fab;
-    //private StorageService storageService;
+
     private EntityPunissement entityPunissement;
     private ArrayAdapter<String> adapterStagiaire;
     private ArrayAdapter<String> adapterGroupe;
@@ -258,7 +258,6 @@ public class CreatePunissementFragment extends Fragment {
 
             if (insert) {
                 PunitionHelper.getInstance(this.getContext()).insert(this.entityPunissement);
-                Log.d("testing", "###################" + this.entityPunissement.getId());
                 EntityPunissement.getList().add(this.entityPunissement);
             } else {
                 PunitionHelper.getInstance(this.getContext()).update(this.entityPunissement);
@@ -279,18 +278,18 @@ public class CreatePunissementFragment extends Fragment {
                     .setAction("Action", null).show();*/
             getActivity().finish();
         }
-        //  List<String> countries = Arrays.asList("Germany", "Panama", "Australia");
-        spinnerStagiaires = new ArrayList();//.asList("Germany", "Panama", "Australia");<EntitySpinner>
+
+        spinnerStagiaires = new ArrayList();
         for (EntityStagiaires stagiaire : listStagiares) {
             spinnerStagiaires.add(new EntitySpinner(stagiaire.getLastAndFirstName(), stagiaire.getId(), 1));
         }
 
-        spinnerGroupes = new ArrayList();//.asList("Germany", "Panama", "Australia");
+        spinnerGroupes = new ArrayList();
         for (EntityGroupes groupe : listGroupes) {
             spinnerGroupes.add(new EntitySpinner(groupe.getLibelle_groupe(), groupe.getId(), 2));
         }
 
-        spinnerType = new ArrayList();//.asList("Germany", "Panama", "Australia");
+        spinnerType = new ArrayList();
         for (EntityTypePunition typePunition : listTypePunition) {
             spinnerType.add(new EntitySpinner(typePunition.getTitle(), typePunition.getId(), 3));
         }

@@ -193,7 +193,6 @@ public class CreateStagiaresFragment extends Fragment {
 
             if (insert) {
                 StagiaireHelper.getInstance(this.getContext()).insert(this.entityStagiaires);
-                Log.d("testing", "###################" + this.entityStagiaires.getId());
                 EntityStagiaires.getList().add(this.entityStagiaires);
             } else {
                 StagiaireHelper.getInstance(this.getContext()).update(this.entityStagiaires);
@@ -211,7 +210,7 @@ public class CreateStagiaresFragment extends Fragment {
             Toast.makeText(getContext(), "List Groupe vide!!", Toast.LENGTH_LONG).show();
             getActivity().finish();
         }
-        spinnerGroupes = new ArrayList();//.asList("Germany", "Panama", "Australia");
+        spinnerGroupes = new ArrayList();
         for (EntityGroupes groupe : listGroupes) {
             spinnerGroupes.add(new EntitySpinner(groupe.getLibelle_groupe(), groupe.getId(), 2));
         }

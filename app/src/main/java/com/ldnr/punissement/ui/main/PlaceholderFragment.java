@@ -70,7 +70,6 @@ public class PlaceholderFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("testing", "testing resume");
         recyclerView.setAdapter(pageViewModel.getAdapter());
     }
 
