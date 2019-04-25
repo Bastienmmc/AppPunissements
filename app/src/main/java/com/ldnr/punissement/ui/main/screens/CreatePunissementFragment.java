@@ -1,8 +1,6 @@
 package com.ldnr.punissement.ui.main.screens;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -21,12 +19,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ldnr.punissement.R;
-import com.ldnr.punissement.ui.main.DAO.GroupeHelper;
 import com.ldnr.punissement.ui.main.DAO.PunitionHelper;
 import com.ldnr.punissement.ui.main.ViewModel.PunissementsViewModel;
-import com.ldnr.punissement.ui.main.adapter.AdapterGroupes;
 import com.ldnr.punissement.ui.main.adapter.AdapterPunissements;
-import com.ldnr.punissement.ui.main.adapter.AdapterTypePunition;
 import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityPunissement;
 import com.ldnr.punissement.ui.main.entity.EntitySpinner;
@@ -150,13 +145,13 @@ public class CreatePunissementFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     // dialogfragment
+                    save();
                     DialogSendFragment dialogSendFragment = new DialogSendFragment();
                     Bundle args = new Bundle();
-                    args.putInt("id", 0);
+                    args.putInt("id", entityPunissement.getId());
                     dialogSendFragment.setArguments(args);
-                    dialogSendFragment.show(getFragmentManager(),"Send");
-
-                    //save();
+                    dialogSendFragment.show(getFragmentManager(), "Send");
+                    //getActivity().finish();
                 }
             });
 
@@ -273,7 +268,7 @@ public class CreatePunissementFragment extends Fragment {
             }
             AdapterPunissements.getInstance(null).setList(EntityPunissement.getList());
             PunissementsViewModel.getStaticAdapter().notifyDataSetChanged();
-            getActivity().finish();
+
         }
     }
 

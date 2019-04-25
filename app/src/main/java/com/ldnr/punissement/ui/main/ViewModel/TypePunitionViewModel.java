@@ -29,11 +29,11 @@ import java.util.regex.Pattern;
 public class TypePunitionViewModel extends ViewModel implements IViewModel {
     private static RecyclerView.Adapter adapter = AdapterTypePunition.getInstance(EntityTypePunition.getList());
 
-    public static RecyclerView.Adapter getStaticAdapter(){
-        return adapter;
+    public TypePunitionViewModel() {
     }
 
-    public TypePunitionViewModel() {
+    public static RecyclerView.Adapter getStaticAdapter() {
+        return adapter;
     }
 
     private static Activity scanForActivity(Context cont) {
@@ -73,7 +73,7 @@ public class TypePunitionViewModel extends ViewModel implements IViewModel {
 
             @Override
             public void onLongItemClick(View view, int position) {
-                showActionsDialog(view, 4, position);
+                //showActionsDialog(view, 4, position);
             }
         };
 

@@ -2,10 +2,6 @@ package com.ldnr.punissement.ui.main.ViewModel;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.arch.core.util.Function;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -32,13 +28,13 @@ import java.util.regex.Pattern;
 
 public class StagiairesViewModel extends ViewModel implements IViewModel {
     private static RecyclerView.Adapter adapter = AdapterStagiaires.getInstance(EntityStagiaires.getList());
-    public static RecyclerView.Adapter getStaticAdapter(){
-        return adapter;
-    }
-
 
     public StagiairesViewModel() {
 
+    }
+
+    public static RecyclerView.Adapter getStaticAdapter() {
+        return adapter;
     }
 
     private static Activity scanForActivity(Context cont) {
@@ -78,7 +74,7 @@ public class StagiairesViewModel extends ViewModel implements IViewModel {
 
             @Override
             public void onLongItemClick(View view, int position) {
-                showActionsDialog(view, 2, position);
+                //showActionsDialog(view, 2, position);
             }
         };
 

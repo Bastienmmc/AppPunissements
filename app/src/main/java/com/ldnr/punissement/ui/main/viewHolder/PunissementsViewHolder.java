@@ -1,7 +1,6 @@
 package com.ldnr.punissement.ui.main.viewHolder;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -41,7 +40,7 @@ public class PunissementsViewHolder extends RecyclerView.ViewHolder {
         textViewDate.setText(entityPunissement.getDate());
         if (entityPunissement.getId_stagiaire() > 0) {
             EntityStagiaires a = (EntityStagiaires) StagiaireHelper.getInstance(null).getElement(entityPunissement.getId_stagiaire());
-
+            entityPunissement.setStagiaires(a);
             entityPunissement.addToString(a.getLastAndFirstName());
             textViewNom.setText(a.getLastAndFirstName());
             try {
@@ -52,6 +51,7 @@ public class PunissementsViewHolder extends RecyclerView.ViewHolder {
         if (entityPunissement.getId_groupe() > 0) {
             EntityGroupes a = (EntityGroupes) GroupeHelper.getInstance(null).getElement(entityPunissement.getId_groupe());
             entityPunissement.addToString(a.getLibelle_groupe());
+            entityPunissement.setGroupes(a);
             textViewNom.setText(a.getLibelle_groupe());
             try {
                 imageButtonIcon.setImageURI(this.storageService.getOutputMediaFile(a.getPath_photo_groupe()));

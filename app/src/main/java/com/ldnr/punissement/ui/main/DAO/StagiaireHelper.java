@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.ldnr.punissement.ui.main.entity.EntityStagiaires;
 import com.ldnr.punissement.ui.main.entity.IEntity;
@@ -215,6 +214,46 @@ public class StagiaireHelper extends SQLiteOpenHelper implements IDaoHelper {
     @Override
     public void deleteAllElelementsTable() {
         dbWrite.execSQL("DELETE FROM " + TABLE_STAGIAIRE_NAME);
+    }
+
+
+    public ArrayList<IEntity> getList(int id_groupe) {
+        ArrayList<IEntity> stagiaires = new ArrayList<>();
+        try {
+            Cursor res = dbRead.query(
+                    TABLE_STAGIAIRE_NAME /* table */,
+                    new String[]{TABLE_STAGIAIRE_COLUMN_ID, TABLE_STAGIAIRE_COLUMN_LASTNAME, TABLE_STAGIAIRE_COLUMN_FIRSTNAME, TABLE_STAGIAIRE_COLUMN_PATH_PHOTO, TABLE_STAGIAIRE_COLUMN_MAIL, TABLE_STAGIAIRE_COLUMN_SMS, TABLE_STAGIAIRE_COLUMN_ID_GROUPE} /* columns */,
+                    TABLE_STAGIAIRE_COLUMN_ID_GROUPE + " = ?" /* where or selection */,
+                    new String[]{String.valueOf(id_groupe)} /* selectionArgs i.e. value to replace ? */,
+                    null /* groupBy */,
+                    null /* having */,
+                    null /* orderBy */
+            );
+
+           // Cursor res = dbRead.rawQuery("SELECT * FROM " + TABLE_STAGIAIRE_NAME, null);
+            // Si la base est vide, renvoie la liste initialisée à vide
+            if (res.getCount() == 0) {
+                res.close();
+                return stagiaires;
+            }
+            res.moveToFirst();
+            while (!res.isAfterLast()) {
+                EntityStagiaires stagiaire = new EntityStagiaires(res.getInt(res.getColumnIndex(TABLE_STAGIAIRE_COLUMN_ID)),
+                        res.getString(res.getColumnIndex(TABLE_STAGIAIRE_COLUMN_LASTNAME)),
+                        res.getString(res.getColumnIndex(TABLE_STAGIAIRE_COLUMN_FIRSTNAME)),
+                        res.getString(res.getColumnIndex(TABLE_STAGIAIRE_COLUMN_PATH_PHOTO)),
+                        res.getString(res.getColumnIndex(TABLE_STAGIAIRE_COLUMN_MAIL)),
+                        res.getString(res.getColumnIndex(TABLE_STAGIAIRE_COLUMN_SMS)),
+                        res.getInt(res.getColumnIndex(TABLE_STAGIAIRE_COLUMN_ID_GROUPE)));
+                stagiaires.add(stagiaire);
+                res.moveToNext();
+            }
+            res.close();
+            return stagiaires;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return stagiaires;
+        }
     }
 
 }
