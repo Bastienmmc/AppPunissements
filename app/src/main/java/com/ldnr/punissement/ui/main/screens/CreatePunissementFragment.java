@@ -21,8 +21,12 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ldnr.punissement.R;
+import com.ldnr.punissement.ui.main.DAO.GroupeHelper;
 import com.ldnr.punissement.ui.main.DAO.PunitionHelper;
+import com.ldnr.punissement.ui.main.ViewModel.PunissementsViewModel;
+import com.ldnr.punissement.ui.main.adapter.AdapterGroupes;
 import com.ldnr.punissement.ui.main.adapter.AdapterPunissements;
+import com.ldnr.punissement.ui.main.adapter.AdapterTypePunition;
 import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityPunissement;
 import com.ldnr.punissement.ui.main.entity.EntitySpinner;
@@ -57,7 +61,7 @@ public class CreatePunissementFragment extends Fragment {
 
 
     private FloatingActionButton fab;
-    //private StorageService storageService;
+
     private EntityPunissement entityPunissement;
     private ArrayAdapter<String> adapterStagiaire;
     private ArrayAdapter<String> adapterGroupe;
@@ -174,8 +178,9 @@ public class CreatePunissementFragment extends Fragment {
                     this.initUpdate(pos);
                     break;
                 case "delete":
-                    PunitionHelper.getInstance(this.getContext()).delete(EntityPunissement.getList().get(pos));
-                    EntityPunissement.getList().remove(pos);
+                    PunitionHelper.getInstance(this.getContext()).delete(AdapterPunissements.getInstance(null).getList().get(pos));
+                    AdapterPunissements.getInstance(null).getList().remove(pos);
+                    PunissementsViewModel.getStaticAdapter().notifyDataSetChanged();
                     getActivity().finish();
                     break;
                 default:
@@ -262,12 +267,12 @@ public class CreatePunissementFragment extends Fragment {
 
             if (insert) {
                 PunitionHelper.getInstance(this.getContext()).insert(this.entityPunissement);
-                Log.d("testing", "###################" + this.entityPunissement.getId());
                 EntityPunissement.getList().add(this.entityPunissement);
             } else {
                 PunitionHelper.getInstance(this.getContext()).update(this.entityPunissement);
             }
-
+            AdapterPunissements.getInstance(null).setList(EntityPunissement.getList());
+            PunissementsViewModel.getStaticAdapter().notifyDataSetChanged();
             getActivity().finish();
         }
     }
@@ -282,18 +287,18 @@ public class CreatePunissementFragment extends Fragment {
                     .setAction("Action", null).show();*/
             getActivity().finish();
         }
-        //  List<String> countries = Arrays.asList("Germany", "Panama", "Australia");
-        spinnerStagiaires = new ArrayList();//.asList("Germany", "Panama", "Australia");<EntitySpinner>
+
+        spinnerStagiaires = new ArrayList();
         for (EntityStagiaires stagiaire : listStagiares) {
             spinnerStagiaires.add(new EntitySpinner(stagiaire.getLastAndFirstName(), stagiaire.getId(), 1));
         }
 
-        spinnerGroupes = new ArrayList();//.asList("Germany", "Panama", "Australia");
+        spinnerGroupes = new ArrayList();
         for (EntityGroupes groupe : listGroupes) {
             spinnerGroupes.add(new EntitySpinner(groupe.getLibelle_groupe(), groupe.getId(), 2));
         }
 
-        spinnerType = new ArrayList();//.asList("Germany", "Panama", "Australia");
+        spinnerType = new ArrayList();
         for (EntityTypePunition typePunition : listTypePunition) {
             spinnerType.add(new EntitySpinner(typePunition.getTitle(), typePunition.getId(), 3));
         }

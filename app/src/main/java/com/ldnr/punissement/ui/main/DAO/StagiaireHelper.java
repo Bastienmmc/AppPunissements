@@ -34,7 +34,7 @@ public class StagiaireHelper extends SQLiteOpenHelper implements IDaoHelper {
     // Constructeur
     private StagiaireHelper(Context context) {
 
-        super(context, DATABASE_NAME, null, 2);
+        super(context, DATABASE_NAME, null, 3);
         try {
             dbWrite.execSQL("CREATE TABLE " + TABLE_STAGIAIRE_NAME
                     + " ( " + TABLE_STAGIAIRE_COLUMN_ID + " integer primary key, "
@@ -101,7 +101,7 @@ public class StagiaireHelper extends SQLiteOpenHelper implements IDaoHelper {
                 pStagiaire.setId(res.getInt(res.getColumnIndex(TABLE_STAGIAIRE_COLUMN_ID)));
             }
         } catch (SQLException e) {
-            Log.d("testing", "#########" + e.getMessage());
+
         }
     }
 

@@ -34,7 +34,7 @@ public class PunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
 
     // Constructeur
     private PunitionHelper(Context context) {
-        super(context, DATABASE_NAME, null, 2);
+        super(context, DATABASE_NAME, null, 3);
         try {
             dbWrite.execSQL("CREATE TABLE " + TABLE_PUNITION_NAME
                     + " ( " + TABLE_PUNITION_COLUMN_ID + " integer primary key, "

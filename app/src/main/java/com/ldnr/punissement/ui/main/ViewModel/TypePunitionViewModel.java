@@ -27,8 +27,11 @@ import java.util.regex.Pattern;
 
 
 public class TypePunitionViewModel extends ViewModel implements IViewModel {
-    private static final RecyclerView.Adapter adapter = AdapterTypePunition.getInstance(EntityTypePunition.getList());
+    private static RecyclerView.Adapter adapter = AdapterTypePunition.getInstance(EntityTypePunition.getList());
 
+    public static RecyclerView.Adapter getStaticAdapter(){
+        return adapter;
+    }
 
     public TypePunitionViewModel() {
     }

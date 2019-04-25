@@ -90,7 +90,6 @@ public class AppActivity extends AppCompatActivity {
     public void initDb(){
         //GroupeHelper.getInstance(getApplicationContext()).deleteAllElelementsTable();
         EntityGroupes.setList(GroupeHelper.getInstance(getApplicationContext()).getList());
-        Log.d("testing", "##########EntityGroupeListSize" + EntityGroupes.getList().size());
         EntityStagiaires.setList(StagiaireHelper.getInstance(getApplicationContext()).getList());
         EntityPunissement.setList(PunitionHelper.getInstance(getApplicationContext()).getList());
         EntityTypePunition.setList(TypePunitionHelper.getInstance(getApplicationContext()).getList());

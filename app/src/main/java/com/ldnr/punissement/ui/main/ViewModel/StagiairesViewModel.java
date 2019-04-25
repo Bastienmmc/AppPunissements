@@ -31,24 +31,13 @@ import java.util.regex.Pattern;
 
 
 public class StagiairesViewModel extends ViewModel implements IViewModel {
-    private static final RecyclerView.Adapter adapter = AdapterStagiaires.getInstance(EntityStagiaires.getList());
-    private static final List tab3 = new ArrayList();
-    public static boolean bool = false;
-    private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
-    private LiveData<List> tabs = Transformations.map(mIndex, new Function<Integer, List>() {
-        @Override
-        public List apply(Integer input) {
-            return tab3;
-        }
-    });
+    private static RecyclerView.Adapter adapter = AdapterStagiaires.getInstance(EntityStagiaires.getList());
+    public static RecyclerView.Adapter getStaticAdapter(){
+        return adapter;
+    }
 
 
     public StagiairesViewModel() {
-      /*  if (bool == false) {
-            EntityStagiaires.addElement(new EntityStagiaires("StagiairesViewModel"));
-            tab3.add(adapter);
-            bool = true;
-        }*/
 
     }
 
@@ -64,11 +53,7 @@ public class StagiairesViewModel extends ViewModel implements IViewModel {
     }
 
     public void setIndex(int index) {
-        mIndex.setValue(index);
-    }
 
-    public LiveData<List> getText() {
-        return tabs;
     }
 
     public RecyclerView.Adapter getAdapter() {
