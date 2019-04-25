@@ -7,17 +7,10 @@ public class EntityGroupes implements IEntity {
 
     private static List<EntityGroupes> list = new ArrayList();
 
-    // private static LiveData<EntityGroupes> list1 = new ArrayList();
-    //private static MutableLiveData<List<EntityGroupes>> mFavs= new MutableLiveData<>();
-
     private int id;
     private String libelle_groupe;
     private String path_photo_groupe;
 
-    /*public static MutableLiveData<List<EntityGroupes>>getMutableLiveData(){
-        mFavs.setValue(list);
-        return mFavs;
-    }*/
 
     public EntityGroupes(int id, String libelle_groupe, String path_photo_groupe) {
         this.id = id;

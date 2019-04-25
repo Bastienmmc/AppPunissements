@@ -1,24 +1,25 @@
 package com.ldnr.punissement.ui.main.screens;
 
-
+import java.util.Calendar;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ldnr.punissement.R;
-import com.ldnr.punissement.ui.main.DAO.GroupeHelper;
 import com.ldnr.punissement.ui.main.DAO.PunitionHelper;
 import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityPunissement;
@@ -26,8 +27,11 @@ import com.ldnr.punissement.ui.main.entity.EntitySpinner;
 import com.ldnr.punissement.ui.main.entity.EntityStagiaires;
 import com.ldnr.punissement.ui.main.entity.EntityTypePunition;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -59,6 +63,7 @@ public class CreatePunissementFragment extends Fragment {
     private List spinnerType;
     private int selectedAdapter;
 
+    private int mYear,mMonth,mDay;
     public CreatePunissementFragment() {
         // Required empty public constructor
     }
@@ -73,6 +78,11 @@ public class CreatePunissementFragment extends Fragment {
             editLibelle = (EditText) getView().findViewById(R.id.libelle);
             editLieu = (EditText) getView().findViewById(R.id.lieu);
             editDate = (EditText) getView().findViewById(R.id.date);
+
+            editDate.setFocusable(true);
+            editDate.setFocusableInTouchMode(true);
+            editDate.setClickable(true);
+            editDate.setInputType(InputType.TYPE_NULL);
 
             spinnerSelectEntity = (Spinner) getView().findViewById(R.id.select_entity);
             spinnerSelectType = (Spinner) getView().findViewById(R.id.select_type);
@@ -96,6 +106,39 @@ public class CreatePunissementFragment extends Fragment {
                     switchSpinnerSelectEntity(1);
                 }
             });
+
+
+
+            editDate.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // Launch Date Picker Dialog
+                    DatePickerDialog dpd = new DatePickerDialog(v.getContext(),
+                            new DatePickerDialog.OnDateSetListener() {
+
+                                @Override
+                                public void onDateSet(DatePicker view, int year,
+                                                      int monthOfYear, int dayOfMonth) {
+
+                                    Calendar myCalendar = Calendar.getInstance();
+                                    myCalendar.set(Calendar.YEAR, year);
+                                    myCalendar.set(Calendar.MONTH, monthOfYear);
+                                    myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                                    // myCalendar.add(Calendar.DATE, 0);
+                                    String myFormat = "dd-MM-yyyy"; //In which you need put here
+                                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
+                                    editDate.setText(sdf.format(myCalendar.getTime()));
+
+                                }
+                            }, mYear, mMonth, mDay);
+                    dpd.getDatePicker().setMinDate(System.currentTimeMillis());
+                    dpd.show();
+
+                }
+            });
+
+
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -143,6 +186,11 @@ public class CreatePunissementFragment extends Fragment {
     private void initInsert() {
         this.insert = true;
         this.entityPunissement = new EntityPunissement();
+        Date currentTime = Calendar.getInstance().getTime();
+        String myFormat = "dd-MM-yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
+        editDate.setText(sdf.format(currentTime));
+        this.switchSpinnerSelectEntity(1);
     }
 
     private void initUpdate(int pos) {
@@ -207,7 +255,6 @@ public class CreatePunissementFragment extends Fragment {
             EntityPunissement.getList().add(this.entityPunissement);
         } else {
             PunitionHelper.getInstance(this.getContext()).update(this.entityPunissement);
-          //  EntityPunissement.getList().add(this.pos, this.entityPunissement);
         }
 
         getActivity().finish();
@@ -381,6 +428,7 @@ public class CreatePunissementFragment extends Fragment {
 
         return valid;
     }
+
 
 }
 

@@ -112,4 +112,9 @@ public class EntityPunissement implements IEntity {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String toString(){
+        return this.title + " " + this.description + " " + this.lieu + " " + this.date;
+
+    }
 }

@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.ldnr.punissement.ui.main.DAO.GroupeHelper;
 import com.ldnr.punissement.ui.main.DAO.PunitionHelper;
@@ -22,6 +23,11 @@ import com.ldnr.punissement.ui.main.entity.EntityPunissement;
 import com.ldnr.punissement.ui.main.entity.EntityStagiaires;
 import com.ldnr.punissement.ui.main.entity.EntityTypePunition;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class AppActivity extends AppCompatActivity {
 
     @Override
@@ -29,10 +35,34 @@ public class AppActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         EntityStagiaires.setList(StagiaireHelper.getInstance(this).getList());
+
+
+
         EntityGroupes.setList(GroupeHelper.getInstance(this).getList());
 
         EntityTypePunition.setList(TypePunitionHelper.getInstance(this).getList());
-        EntityPunissement.setList(PunitionHelper.getInstance(this).getList());
+        //EntityPunissement.setList(PunitionHelper.getInstance(this).getList());
+
+        List lista = PunitionHelper.getInstance(this).getList();
+
+        //Pattern pattern = Pattern.compile("^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._' -!?,;:\\-]{2,60}$");
+        Pattern pattern = Pattern.compile("tiramisu");
+
+
+        List listaok = new ArrayList();
+
+
+        for(Object el:lista){
+            Log.d("testing",((EntityPunissement)el).toString());
+            Matcher matcher = pattern.matcher(((EntityPunissement)el).toString());
+            if(matcher.find())
+            {
+                listaok.add((EntityPunissement)el);
+            }
+
+        }
+        EntityPunissement.setList(listaok);
+
 
         // A la création de la vue, on vérifie les permissions.
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) !=
