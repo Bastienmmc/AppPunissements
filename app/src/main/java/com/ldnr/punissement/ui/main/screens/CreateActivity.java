@@ -128,8 +128,4 @@ public class CreateActivity extends AppCompatActivity {
 
     }
 
-    public void openDialog(View view) {
-        DialogSendFragment dialogSendFragment = new DialogSendFragment();
-        dialogSendFragment.show(getSupportFragmentManager(), "Dialogue Fragment");
-    }
 }
