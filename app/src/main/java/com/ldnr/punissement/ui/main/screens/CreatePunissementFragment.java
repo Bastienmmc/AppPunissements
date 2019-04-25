@@ -274,8 +274,6 @@ public class CreatePunissementFragment extends Fragment {
         List<EntityTypePunition> listTypePunition = EntityTypePunition.getList();
         if (listStagiares.size() == 0 || listGroupes.size() == 0 || listTypePunition.size() == 0) {
             Toast.makeText(getContext(), "List Groupe ou List Stagiaire ou ListTypePunition vide!!", Toast.LENGTH_LONG).show();
-            /*Snackbar.make(getView(), "List Groupe ou List Stagiaire ou ListTypePunition vide!!", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();*/
             getActivity().finish();
         }
 
