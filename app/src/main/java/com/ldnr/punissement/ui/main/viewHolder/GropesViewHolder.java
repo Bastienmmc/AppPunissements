@@ -15,10 +15,11 @@ public class GropesViewHolder extends RecyclerView.ViewHolder {
     private TextView textViewTitle;
     private ImageButton imageButtonIcon;
     private StorageService storageService;
+
     //itemView est la vue correspondante à 1 cellule
     public GropesViewHolder(View itemView) {
         super(itemView);
-        storageService=StorageService.getInstance(itemView.getContext());
+        storageService = StorageService.getInstance(itemView.getContext());
         //c'est ici que l'on fait nos findView
         textViewTitle = (TextView) itemView.findViewById(R.id.card_groupe_title);
         imageButtonIcon = (ImageButton) itemView.findViewById(R.id.card_groupe_icon);
@@ -29,9 +30,9 @@ public class GropesViewHolder extends RecyclerView.ViewHolder {
     //puis ajouter une fonction pour remplir la cellule en fonction d'un MyObject
     public void bind(EntityGroupes entityGroupes) {
         textViewTitle.setText(entityGroupes.getLibelle_groupe());
-        try{
+        try {
             imageButtonIcon.setImageURI(this.storageService.getOutputMediaFile(entityGroupes.getPath_photo_groupe()));
+        } catch (Exception e) {
         }
-        catch (Exception e){}
     }
 }

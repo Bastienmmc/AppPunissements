@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.ldnr.punissement.R;
 import com.ldnr.punissement.ui.main.DAO.TypePunitionHelper;
+import com.ldnr.punissement.ui.main.adapter.AdapterTypePunition;
 import com.ldnr.punissement.ui.main.entity.EntityTypePunition;
 
 import java.util.regex.Matcher;
@@ -38,7 +39,6 @@ public class CreateTypePunitionFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         try {
-
             editTitle = (EditText) getView().findViewById(R.id.title);
             editDescription = (EditText) getView().findViewById(R.id.description);
 
@@ -56,12 +56,12 @@ public class CreateTypePunitionFragment extends Fragment {
             Bundle bundle = this.getArguments();
             if (bundle != null) {
                 pos = bundle.getInt("pos_list");
-                operation= bundle.getString("operation");
+                operation = bundle.getString("operation");
             } else {
                 pos = -1;
-                operation="insert";
+                operation = "insert";
             }
-            switch(operation){
+            switch (operation) {
                 case "insert":
                     this.initInsert();
                     break;
@@ -89,23 +89,25 @@ public class CreateTypePunitionFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_create_typepunition, container, false);
     }
+
     private void initInsert() {
         this.insert = true;
         this.entityTypePunition = new EntityTypePunition();
     }
+
     private void initUpdate(int pos) {
         this.insert = false;
-        this.entityTypePunition = EntityTypePunition.getList().get(pos);
+        this.entityTypePunition = (EntityTypePunition) AdapterTypePunition.getInstance(null).getList().get(pos);
 
         editTitle.setText(entityTypePunition.getTitle());
         editDescription.setText(entityTypePunition.getDescription());
     }
 
     private void save() {
-        String title=editTitle.getText().toString();
-        String description= editDescription.getText().toString();
+        String title = editTitle.getText().toString();
+        String description = editDescription.getText().toString();
 
-        if(Validator(title, description)){
+        if (Validator(title, description)) {
             this.entityTypePunition.setTitle(title);
             this.entityTypePunition.setDescription(description);
             if (insert) {
@@ -122,40 +124,38 @@ public class CreateTypePunitionFragment extends Fragment {
     }
 
     private boolean Validator(String title, String description) {
-        boolean valid=true;
+        boolean valid = true;
         //String regexp[] = {"[\\d]{2,}","/\\w{2,}/u","","" };
-        if (title!=null && !title.isEmpty()) {
+        if (title != null && !title.isEmpty()) {
 
             Pattern pattern = Pattern.compile("^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._' -!?,;:\\-]{2,60}$");
 
             Matcher matcher = pattern.matcher(title);
-            if(!matcher.find())
-            {
+            if (!matcher.find()) {
                 Toast.makeText(getContext(), "Title pas valide", Toast.LENGTH_LONG).show();
-                valid=false;
+                valid = false;
             }
 
-        }else{
+        } else {
             Toast.makeText(getContext(), "Title pas valide", Toast.LENGTH_LONG).show();
-            valid= false;
+            valid = false;
 
         }
 
-        if (description!=null && !description.isEmpty()) {
+        if (description != null && !description.isEmpty()) {
 
             Pattern pattern = Pattern.compile("^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._' -!?,;:\\-]{2,60}$");
 
             Matcher matcher = pattern.matcher(description);
-            if(!matcher.find())
-            {
+            if (!matcher.find()) {
                 Toast.makeText(getContext(), "Description pas valide", Toast.LENGTH_LONG).show();
-                valid=false;
+                valid = false;
             }
 
 
-        }else{
+        } else {
             Toast.makeText(getContext(), "Description pas valide", Toast.LENGTH_LONG).show();
-            valid= false;
+            valid = false;
 
         }
 
