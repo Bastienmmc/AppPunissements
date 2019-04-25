@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.screens.CreatePunissementFragment">
 
-
     <ImageButton
         android:id="@+id/icon_stagiaire"
         android:layout_width="150dp"
@@ -16,13 +15,13 @@
         android:background="#60C3FF"
         android:contentDescription="@string/icon_stagiaire"
         android:src="@drawable/ic_face_black_48dp"
-        app:layout_constraintEnd_toStartOf="@+id/con_groupe"
+        app:layout_constraintEnd_toStartOf="@+id/icon_groupe"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/con_groupe"
+        android:id="@+id/icon_groupe"
         android:layout_width="150dp"
         android:layout_height="72dp"
         android:layout_marginTop="28dp"
@@ -37,8 +36,8 @@
 
     <LinearLayout
         android:id="@+id/form_punissement"
-        android:layout_width="0dp"
-        android:layout_height="443dp"
+        android:layout_width="338dp"
+        android:layout_height="473dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
@@ -66,9 +65,20 @@
             android:padding="16dp" />
 
         <EditText
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_input_form"
+            android:ems="10"
+            android:hint="@string/title"
+            android:inputType="textPersonName"
+            android:padding="16dp" />
+
+        <EditText
             android:id="@+id/libelle"
             android:layout_width="match_parent"
-            android:layout_height="164dp"
+            android:layout_height="116dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_input_form"
             android:ems="10"

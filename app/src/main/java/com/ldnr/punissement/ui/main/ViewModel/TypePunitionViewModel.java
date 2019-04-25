@@ -2,7 +2,6 @@ package com.ldnr.punissement.ui.main.ViewModel;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -10,22 +9,24 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.support.v7.app.AlertDialog;
-import android.view.ContextThemeWrapper;
-import com.ldnr.punissement.AppActivity;
+
 import com.ldnr.punissement.R;
 import com.ldnr.punissement.ui.main.RecyclerItemClickListener;
 import com.ldnr.punissement.ui.main.adapter.AdapterGroupes;
+import com.ldnr.punissement.ui.main.adapter.AdapterTypePunition;
 import com.ldnr.punissement.ui.main.entity.EntityGroupes;
+import com.ldnr.punissement.ui.main.entity.EntityTypePunition;
 import com.ldnr.punissement.ui.main.screens.CreateActivity;
 
-public class GroupesViewModel extends ViewModel implements IViewModel {
-    private static final RecyclerView.Adapter adapter = AdapterGroupes.getInstance(EntityGroupes.getList());
+
+public class TypePunitionViewModel extends ViewModel implements IViewModel {
+    private static final RecyclerView.Adapter adapter = AdapterTypePunition.getInstance(EntityTypePunition.getList());
 
 
-    public GroupesViewModel() {
+    public TypePunitionViewModel() {
     }
 
     public void setIndex(int index) {
@@ -41,7 +42,7 @@ public class GroupesViewModel extends ViewModel implements IViewModel {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openCreateActivity(view, 3, -1, "insert");
+                openCreateActivity(view, 4, -1,"insert");
             }
         };
     }
@@ -51,12 +52,12 @@ public class GroupesViewModel extends ViewModel implements IViewModel {
         return new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                openCreateActivity(view, 3, position, "update");
+                openCreateActivity(view, 4, position,"update");
             }
 
             @Override
             public void onLongItemClick(View view, int position) {
-                showActionsDialog(view, 3,position);
+                showActionsDialog(view, 4,position);
             }
         };
 
@@ -72,7 +73,6 @@ public class GroupesViewModel extends ViewModel implements IViewModel {
         openIntent.putExtras(dataBundle);
         context.startActivity(openIntent);
     }
-
     // Affichage d'une boite de dialogue
     private void showActionsDialog(View view,final int tab, final int pos) {
 
@@ -113,4 +113,6 @@ public class GroupesViewModel extends ViewModel implements IViewModel {
 
         return null;
     }
+
+
 }

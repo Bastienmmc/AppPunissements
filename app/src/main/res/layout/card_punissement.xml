@@ -16,16 +16,59 @@
         android:orientation="vertical">
 
 
-        <TextView
-            android:id="@+id/text"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?android:selectableItemBackground"
-            android:fontFamily="sans-serif"
-            android:padding="20dp"
-            android:textColor="#333"
-            android:textSize="18sp"
-            tools:text="Paris" />
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/card_punissement_icon"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <LinearLayout
+                android:layout_width="157dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/card_punissement_nom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:selectableItemBackground"
+                    android:fontFamily="sans-serif"
+                    android:padding="20dp"
+                    android:textColor="#333"
+                    android:textSize="18sp"
+                    tools:text="nom" />
+
+                <TextView
+                    android:id="@+id/card_punissement_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?android:selectableItemBackground"
+                    android:fontFamily="sans-serif"
+                    android:padding="20dp"
+                    android:textColor="#333"
+                    android:textSize="18sp"
+                    tools:text="@string/frag4_title" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/card_punissement_date"
+                android:layout_width="136dp"
+                android:layout_height="match_parent"
+                android:background="?android:selectableItemBackground"
+                android:fontFamily="sans-serif"
+                android:padding="20dp"
+                android:textColor="#333"
+                android:textSize="18sp"
+                tools:text="Date" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

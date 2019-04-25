@@ -13,19 +13,65 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?android:selectableItemBackground"
-            android:padding="20dp"
-            tools:text="Paris"
-            android:fontFamily="sans-serif"
-            android:textColor="#333"
-            android:textSize="18sp" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/card_stagiaire_icon"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/card_stagiaire_nom"
+                    android:layout_width="276dp"
+                    android:layout_height="wrap_content"
+                    android:background="?android:selectableItemBackground"
+                    android:fontFamily="sans-serif"
+                    android:paddingVertical="10dp"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="#333"
+                    android:textSize="18sp"
+                    tools:text="Paris" />
+
+                <TextView
+                    android:id="@+id/card_stagiaire_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:selectableItemBackground"
+                    android:fontFamily="sans-serif"
+                    android:paddingVertical="10dp"
+                    android:paddingHorizontal="30dp"
+                    android:textColor="#333"
+                    android:textSize="14sp"
+                    tools:text="Paris" />
+
+                <TextView
+                    android:id="@+id/card_stagiaire_telephone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?android:selectableItemBackground"
+                    android:fontFamily="sans-serif"
+                    android:paddingVertical="10dp"
+                    android:paddingHorizontal="30dp"
+                    android:textColor="#333"
+                    android:textSize="14sp"
+                    tools:text="Paris" />
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
