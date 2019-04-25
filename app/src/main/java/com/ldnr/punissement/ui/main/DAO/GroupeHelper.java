@@ -14,8 +14,9 @@ import java.util.ArrayList;
 
 public class GroupeHelper extends SQLiteOpenHelper implements IDaoHelper {
 
+    // nom de la base de donnée
     private static final String DATABASE_NAME = "punissements.db";
-    /* table Groupe*/
+    // table Groupe - description des champs
     private static final String TABLE_GROUPE_NAME = "groupe";
     private static final String TABLE_GROUPE_COLUMN_ID = "id_groupe";
     private static final String TABLE_GROUPE_COLUMN_LIBELLE = "libelle_groupe";
@@ -25,7 +26,7 @@ public class GroupeHelper extends SQLiteOpenHelper implements IDaoHelper {
     private SQLiteDatabase dbWrite = this.getWritableDatabase();
     private SQLiteDatabase dbRead = this.getReadableDatabase();
 
-    // Constructeur
+    // Constructeur : création de la table dans la base de données
     private GroupeHelper(Context context) {
         super(context, DATABASE_NAME, null, 2);
         try {
@@ -64,7 +65,6 @@ public class GroupeHelper extends SQLiteOpenHelper implements IDaoHelper {
     }
 
     // Insertion d'un Groupe dans la base de données :
-    // MODIFIER NOM OBJET !!!!!!!
     @Override
     public void insert(IEntity iEntity) {
         try {
@@ -104,6 +104,7 @@ public class GroupeHelper extends SQLiteOpenHelper implements IDaoHelper {
 
     }
 
+    // delete  d'un groupe
     @Override
     public void delete(IEntity iEntity) {
         try {
@@ -133,6 +134,7 @@ public class GroupeHelper extends SQLiteOpenHelper implements IDaoHelper {
                 return groupes;
             }
             res.moveToFirst();
+            // liste des champs
             while (!res.isAfterLast()) {
                 EntityGroupes groupe = new EntityGroupes(res.getInt(res.getColumnIndex(TABLE_GROUPE_COLUMN_ID)),
                         res.getString(res.getColumnIndex(TABLE_GROUPE_COLUMN_LIBELLE)),
@@ -140,6 +142,7 @@ public class GroupeHelper extends SQLiteOpenHelper implements IDaoHelper {
                 groupes.add(groupe);
                 res.moveToNext();
             }
+            // fermeture du curseur
             res.close();
             return groupes;
         } catch (SQLException e) {
@@ -148,6 +151,7 @@ public class GroupeHelper extends SQLiteOpenHelper implements IDaoHelper {
         }
     }
 
+    // recherche un enregistrement sur l'ID
     @Override
     public IEntity getElement(int id) {
         EntityGroupes groupe = new EntityGroupes();

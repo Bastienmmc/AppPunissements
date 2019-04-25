@@ -82,7 +82,7 @@ public class PunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
     }
 
     // Insertion d'une punition dans la base de données :
-    // MODIFIER NOM OBJET !!!!!!!
+
     @Override
     public void insert(IEntity iEntity) {
         try {
