@@ -1,6 +1,7 @@
 package com.ldnr.punissement.ui.main.ViewModel;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextWatcher;
 import android.view.View;
 
 import com.ldnr.punissement.ui.main.RecyclerItemClickListener;
@@ -19,4 +20,6 @@ public interface IViewModel {
 
     //public void openCreateActivity(View view, int tab, int pos);
     public void openCreateActivity(View view, int tab, int pos, String operation);
+    public TextWatcher getTextWatcherListener();
+
 }

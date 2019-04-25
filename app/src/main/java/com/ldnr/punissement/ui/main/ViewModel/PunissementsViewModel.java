@@ -15,9 +15,13 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 
 import com.ldnr.punissement.R;
+import com.ldnr.punissement.ui.main.DAO.PunitionHelper;
 import com.ldnr.punissement.ui.main.RecyclerItemClickListener;
 import com.ldnr.punissement.ui.main.adapter.AdapterPunissements;
 import com.ldnr.punissement.ui.main.entity.EntityPunissement;
@@ -25,11 +29,11 @@ import com.ldnr.punissement.ui.main.screens.CreateActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PunissementsViewModel extends ViewModel implements IViewModel {
-    private static final RecyclerView.Adapter adapter = AdapterPunissements.getInstance(EntityPunissement.getList());
-
-
+    private static RecyclerView.Adapter adapter = AdapterPunissements.getInstance(EntityPunissement.getList());
 
     public PunissementsViewModel() {
     }
@@ -65,6 +69,29 @@ public class PunissementsViewModel extends ViewModel implements IViewModel {
             }
         };
 
+    }
+
+    public TextWatcher getTextWatcherListener(){
+        return new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+
+                //search(s);
+                Log.d("testing","########text" + s);
+               /* if(s.length() != 0)
+                    field2.setText("");*/
+            }
+        };
     }
 
     public void openCreateActivity(View view, int tab, int pos, String operation) {
@@ -116,5 +143,28 @@ public class PunissementsViewModel extends ViewModel implements IViewModel {
             return scanForActivity(((ContextWrapper)cont).getBaseContext());
 
         return null;
+    }
+
+    private void search(CharSequence str){
+        List lista = PunitionHelper.getInstance(null).getList();
+
+        //Pattern pattern = Pattern.compile("^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._' -!?,;:\\-]{2,60}$");
+        Pattern pattern = Pattern.compile(str.toString());
+
+        List<EntityPunissement> listaok = new ArrayList();
+
+        for(Object el:lista){
+            Log.d("testing",((EntityPunissement)el).toString());
+            Matcher matcher = pattern.matcher(((EntityPunissement)el).toString());
+            if(matcher.find())
+            {
+                Log.d("testing","match");
+                listaok.add((EntityPunissement)el);
+            }
+
+        }
+        //EntityPunissement.setList(listaok);
+        adapter = AdapterPunissements.getInstance(listaok);
+
     }
 }

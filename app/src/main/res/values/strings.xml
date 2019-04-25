@@ -18,6 +18,7 @@
     <string name="date">Date</string>
     <string name="libelle">Libelle</string>
     <string name="title">Title</string>
+    <string name="search">Search</string>
 
     <string name="frag4_title">Title</string>
     <string name="frag4_description">Description</string>

@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.support.v7.app.AlertDialog;
 import android.view.ContextThemeWrapper;
@@ -61,6 +63,29 @@ public class GroupesViewModel extends ViewModel implements IViewModel {
         };
 
     }
+
+
+
+    public TextWatcher getTextWatcherListener(){
+        return new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+               /* if(s.length() != 0)
+                    field2.setText("");*/
+            }
+        };
+    }
+
 
     public void openCreateActivity(View view, int tab, int pos, String operation) {
         Bundle dataBundle = new Bundle();

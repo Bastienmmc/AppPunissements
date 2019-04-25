@@ -41,9 +41,9 @@ public class AppActivity extends AppCompatActivity {
         EntityGroupes.setList(GroupeHelper.getInstance(this).getList());
 
         EntityTypePunition.setList(TypePunitionHelper.getInstance(this).getList());
-        //EntityPunissement.setList(PunitionHelper.getInstance(this).getList());
+        EntityPunissement.setList(PunitionHelper.getInstance(this).getList());
 
-        List lista = PunitionHelper.getInstance(this).getList();
+    /*    List lista = PunitionHelper.getInstance(this).getList();
 
         //Pattern pattern = Pattern.compile("^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._' -!?,;:\\-]{2,60}$");
         Pattern pattern = Pattern.compile("tiramisu");
@@ -61,7 +61,7 @@ public class AppActivity extends AppCompatActivity {
             }
 
         }
-        EntityPunissement.setList(listaok);
+        EntityPunissement.setList(listaok);*/
 
 
         // A la création de la vue, on vérifie les permissions.

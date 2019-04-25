@@ -1,5 +1,6 @@
 package com.ldnr.punissement.ui.main;
 
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,9 +8,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ldnr.punissement.R;
@@ -28,6 +33,7 @@ public class PlaceholderFragment extends Fragment {
 
     private IViewModel pageViewModel;
     private RecyclerView recyclerView;
+    private EditText editTextSearch;
     private FloatingActionButton fab;
     private int index;
 
@@ -68,6 +74,7 @@ public class PlaceholderFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Log.d("testing", "testing resume");
         recyclerView.setAdapter(pageViewModel.getAdapter());
     }
 
@@ -77,7 +84,7 @@ public class PlaceholderFragment extends Fragment {
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
 
-        final TextView textView = root.findViewById(R.id.section_label);
+        //final TextView textView = root.findViewById(R.id.section_label);
 
         recyclerView = root.findViewById(R.id.recyclerView);
         fab = root.findViewById(R.id.fab);
@@ -91,6 +98,36 @@ public class PlaceholderFragment extends Fragment {
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(root.getContext(), recyclerView, pageViewModel.getTouchListenerFunction()));
+
+
+        editTextSearch = (EditText) root.getRootView().findViewById(R.id.editTextSearch);
+        //root.getRootView().findViewById((R.id.editTextSearch);
+        //editTextSearch.setText("dio boia");
+        /*Activity.findViewById(R.id.editTextSearch);
+        View.findViewById(R.id.editTextSearch);
+        root.setContentView(R.layout.activity_main);*/
+
+        editTextSearch.addTextChangedListener(pageViewModel.getTextWatcherListener());
+
+
+        /*
+                new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0)
+                    field2.setText("");
+            }
+        });*/
 
         return root;
     }

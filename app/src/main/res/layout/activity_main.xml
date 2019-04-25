@@ -27,13 +27,6 @@
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary" />
 
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
