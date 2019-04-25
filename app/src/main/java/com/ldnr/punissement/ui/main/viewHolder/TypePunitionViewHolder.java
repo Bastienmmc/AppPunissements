@@ -12,6 +12,7 @@ public class TypePunitionViewHolder extends RecyclerView.ViewHolder {
 
     private TextView textViewTitle;
     private TextView textViewDescription;
+
     //itemView est la vue correspondante à 1 cellule
     public TypePunitionViewHolder(View itemView) {
         super(itemView);
@@ -24,6 +25,6 @@ public class TypePunitionViewHolder extends RecyclerView.ViewHolder {
     //puis ajouter une fonction pour remplir la cellule en fonction d'un MyObject
     public void bind(EntityTypePunition entityTypePunition) {
         textViewTitle.setText(entityTypePunition.getTitle());
-        textViewDescription.setText("Description : "+entityTypePunition.getDescription());
+        textViewDescription.setText("Description : " + entityTypePunition.getDescription());
     }
 }

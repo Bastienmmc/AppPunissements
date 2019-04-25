@@ -21,10 +21,11 @@ public class PunissementsViewHolder extends RecyclerView.ViewHolder {
     private TextView textViewDate;
     private StorageService storageService;
     private ImageButton imageButtonIcon;
+
     //itemView est la vue correspondante à 1 cellule
     public PunissementsViewHolder(View itemView) {
         super(itemView);
-        storageService= StorageService.getInstance(itemView.getContext());
+        storageService = StorageService.getInstance(itemView.getContext());
         //c'est ici que l'on fait nos findView
         textViewNom = (TextView) itemView.findViewById(R.id.card_punissement_nom);
         textViewTitle = (TextView) itemView.findViewById(R.id.card_punissement_title);
@@ -36,23 +37,25 @@ public class PunissementsViewHolder extends RecyclerView.ViewHolder {
     public void bind(EntityPunissement entityPunissement) {
         textViewTitle.setText(entityPunissement.getTitle());
         textViewDate.setText(entityPunissement.getDate());
-        if(entityPunissement.getId_stagiaire()>0){
-            EntityStagiaires a=(EntityStagiaires) StagiaireHelper.getInstance(null).getElement(entityPunissement.getId_stagiaire());
-            textViewNom.setText(a.getLastAndFirstName())  ;
-            try{
-                imageButtonIcon.setImageURI(this.storageService.getOutputMediaFile(a.getPath_photo()));
-            }
-            catch (Exception e){}
-        }
-        if(entityPunissement.getId_groupe()>0){
-            EntityGroupes a=(EntityGroupes) GroupeHelper.getInstance(null).getElement(entityPunissement.getId_groupe());
-            textViewNom.setText(a.getLibelle_groupe())  ;
-            try{
-                imageButtonIcon.setImageURI(this.storageService.getOutputMediaFile(a.getPath_photo_groupe()));
-            }
-            catch (Exception e){}
-        }
+        if (entityPunissement.getId_stagiaire() > 0) {
+            EntityStagiaires a = (EntityStagiaires) StagiaireHelper.getInstance(null).getElement(entityPunissement.getId_stagiaire());
 
+            entityPunissement.addToString(a.getLastAndFirstName());
+            textViewNom.setText(a.getLastAndFirstName());
+            try {
+                imageButtonIcon.setImageURI(this.storageService.getOutputMediaFile(a.getPath_photo()));
+            } catch (Exception e) {
+            }
+        }
+        if (entityPunissement.getId_groupe() > 0) {
+            EntityGroupes a = (EntityGroupes) GroupeHelper.getInstance(null).getElement(entityPunissement.getId_groupe());
+            entityPunissement.addToString(a.getLibelle_groupe());
+            textViewNom.setText(a.getLibelle_groupe());
+            try {
+                imageButtonIcon.setImageURI(this.storageService.getOutputMediaFile(a.getPath_photo_groupe()));
+            } catch (Exception e) {
+            }
+        }
 
 
     }

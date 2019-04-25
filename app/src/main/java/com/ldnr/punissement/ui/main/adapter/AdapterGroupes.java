@@ -16,7 +16,6 @@ public class AdapterGroupes extends RecyclerView.Adapter<GropesViewHolder> {
 
     private List<EntityGroupes> list;
 
-
     public AdapterGroupes(List<EntityGroupes> list) {
         this.list = list;
     }
@@ -26,6 +25,14 @@ public class AdapterGroupes extends RecyclerView.Adapter<GropesViewHolder> {
             instance = new AdapterGroupes(list);
         }
         return instance;
+    }
+
+    public List<EntityGroupes> getList() {
+        return list;
+    }
+
+    public void setList(List<EntityGroupes> list) {
+        this.list = list;
     }
 
     @Override

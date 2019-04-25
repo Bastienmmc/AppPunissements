@@ -20,6 +20,7 @@ public interface IViewModel {
 
     //public void openCreateActivity(View view, int tab, int pos);
     public void openCreateActivity(View view, int tab, int pos, String operation);
+
     public TextWatcher getTextWatcherListener();
 
 }

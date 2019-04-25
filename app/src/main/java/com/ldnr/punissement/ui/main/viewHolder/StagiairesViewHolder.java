@@ -17,10 +17,11 @@ public class StagiairesViewHolder extends RecyclerView.ViewHolder {
     private TextView textViewTelephone;
     private StorageService storageService;
     private ImageButton imageButtonIcon;
+
     //itemView est la vue correspondante à 1 cellule
     public StagiairesViewHolder(View itemView) {
         super(itemView);
-        storageService= StorageService.getInstance(itemView.getContext());
+        storageService = StorageService.getInstance(itemView.getContext());
 
         //c'est ici que l'on fait nos findView
         textViewNom = (TextView) itemView.findViewById(R.id.card_stagiaire_nom);
@@ -33,10 +34,10 @@ public class StagiairesViewHolder extends RecyclerView.ViewHolder {
     public void bind(EntityStagiaires entityStagiaires) {
         textViewNom.setText(entityStagiaires.getLastAndFirstName());
         textViewEmail.setText("Email : " + entityStagiaires.getMail());
-        textViewTelephone.setText("Telephone : "+ entityStagiaires.getSms());
-        try{
+        textViewTelephone.setText("Telephone : " + entityStagiaires.getSms());
+        try {
             imageButtonIcon.setImageURI(this.storageService.getOutputMediaFile(entityStagiaires.getPath_photo()));
+        } catch (Exception e) {
         }
-        catch (Exception e){}
     }
 }

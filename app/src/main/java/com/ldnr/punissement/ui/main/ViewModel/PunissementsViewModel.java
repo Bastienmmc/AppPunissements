@@ -2,26 +2,19 @@ package com.ldnr.punissement.ui.main.ViewModel;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.arch.core.util.Function;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 
 import com.ldnr.punissement.R;
-import com.ldnr.punissement.ui.main.DAO.PunitionHelper;
 import com.ldnr.punissement.ui.main.RecyclerItemClickListener;
 import com.ldnr.punissement.ui.main.adapter.AdapterPunissements;
 import com.ldnr.punissement.ui.main.entity.EntityPunissement;
@@ -33,15 +26,25 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PunissementsViewModel extends ViewModel implements IViewModel {
-    private static RecyclerView.Adapter adapter = AdapterPunissements.getInstance(EntityPunissement.getList());
+    private RecyclerView.Adapter adapter = AdapterPunissements.getInstance(EntityPunissement.getList());
 
     public PunissementsViewModel() {
+    }
+
+    private static Activity scanForActivity(Context cont) {
+        if (cont == null)
+            return null;
+        else if (cont instanceof Activity)
+            return (Activity) cont;
+        else if (cont instanceof ContextWrapper)
+            return scanForActivity(((ContextWrapper) cont).getBaseContext());
+
+        return null;
     }
 
     public void setIndex(int index) {
 
     }
-
 
     public RecyclerView.Adapter getAdapter() {
         return adapter;
@@ -51,7 +54,7 @@ public class PunissementsViewModel extends ViewModel implements IViewModel {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openCreateActivity(view, 1,-1,"insert");
+                openCreateActivity(view, 1, -1, "insert");
             }
         };
     }
@@ -65,17 +68,18 @@ public class PunissementsViewModel extends ViewModel implements IViewModel {
 
             @Override
             public void onLongItemClick(View view, int position) {
-                showActionsDialog(view, 1,position);
+                showActionsDialog(view, 1, position);
             }
         };
 
     }
 
-    public TextWatcher getTextWatcherListener(){
+    public TextWatcher getTextWatcherListener() {
         return new TextWatcher() {
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start,
@@ -86,10 +90,7 @@ public class PunissementsViewModel extends ViewModel implements IViewModel {
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
 
-                //search(s);
-                Log.d("testing","########text" + s);
-               /* if(s.length() != 0)
-                    field2.setText("");*/
+                search(s);
             }
         };
     }
@@ -104,8 +105,9 @@ public class PunissementsViewModel extends ViewModel implements IViewModel {
         openIntent.putExtras(dataBundle);
         context.startActivity(openIntent);
     }
+
     // Affichage d'une boite de dialogue
-    private void showActionsDialog(View view,final int tab, final int pos) {
+    private void showActionsDialog(View view, final int tab, final int pos) {
 
         CharSequence userOptions[] = new CharSequence[]{"Delete", "Cancel"};
 
@@ -117,10 +119,10 @@ public class PunissementsViewModel extends ViewModel implements IViewModel {
             @Override
             public void onClick(DialogInterface dialogInterface, int userChoice) {
                 // Si l'utilisateur choisit la première option (donc Edit)
-                if(userChoice == 0) {
-                    Dialog dialog  = (Dialog) dialogInterface;
+                if (userChoice == 0) {
+                    Dialog dialog = (Dialog) dialogInterface;
                     Context context = dialog.getContext();
-                    Activity activity= scanForActivity(context);
+                    Activity activity = scanForActivity(context);
 
                     View rootView = (View) activity.findViewById(R.id.tabs);
 
@@ -134,37 +136,21 @@ public class PunissementsViewModel extends ViewModel implements IViewModel {
         builder.show();
     }
 
-    private static Activity scanForActivity(Context cont) {
-        if (cont == null)
-            return null;
-        else if (cont instanceof Activity)
-            return (Activity)cont;
-        else if (cont instanceof ContextWrapper)
-            return scanForActivity(((ContextWrapper)cont).getBaseContext());
+    private void search(CharSequence str) {
+        List lista = EntityPunissement.getList();//getInstance(null).getList();
 
-        return null;
-    }
 
-    private void search(CharSequence str){
-        List lista = PunitionHelper.getInstance(null).getList();
+        Pattern pattern = Pattern.compile(str.toString(), Pattern.COMMENTS | Pattern.CASE_INSENSITIVE);
+        List<EntityPunissement> listaSearch = new ArrayList();
 
-        //Pattern pattern = Pattern.compile("^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._' -!?,;:\\-]{2,60}$");
-        Pattern pattern = Pattern.compile(str.toString());
-
-        List<EntityPunissement> listaok = new ArrayList();
-
-        for(Object el:lista){
-            Log.d("testing",((EntityPunissement)el).toString());
-            Matcher matcher = pattern.matcher(((EntityPunissement)el).toString());
-            if(matcher.find())
-            {
-                Log.d("testing","match");
-                listaok.add((EntityPunissement)el);
+        for (Object el : lista) {
+            Matcher matcher = pattern.matcher(((EntityPunissement) el).toString());
+            if (matcher.find()) {
+                listaSearch.add((EntityPunissement) el);
             }
-
         }
-        //EntityPunissement.setList(listaok);
-        adapter = AdapterPunissements.getInstance(listaok);
-
+        ;
+        AdapterPunissements.getInstance(listaSearch).setList(listaSearch);
+        adapter.notifyDataSetChanged();
     }
 }
