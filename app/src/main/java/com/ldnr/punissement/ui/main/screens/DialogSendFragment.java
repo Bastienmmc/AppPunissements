@@ -65,7 +65,6 @@ public class DialogSendFragment extends AppCompatDialogFragment {
         builder.setNegativeButton("Envoi EMAIL", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //Intent intent = new Intent(Intent.ACTION_SENDTO);
                 Intent shareintent = new Intent(Intent.ACTION_SEND);
                 //shareintent.setType("text/plain");
                 shareintent.setType("text/email");
