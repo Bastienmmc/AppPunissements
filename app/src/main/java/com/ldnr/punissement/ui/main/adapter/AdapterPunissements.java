@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ldnr.punissement.R;
-import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityPunissement;
 import com.ldnr.punissement.ui.main.viewHolder.PunissementsViewHolder;
 
@@ -14,20 +13,18 @@ import java.util.List;
 
 public class AdapterPunissements extends RecyclerView.Adapter<PunissementsViewHolder> {
     public static AdapterPunissements instance;
-
-    public static AdapterPunissements getInstance(List<EntityPunissement> list){
-        if (instance == null){
-            instance=new AdapterPunissements(list);
-        }
-        return instance;
-    }
-
-
-
     List<EntityPunissement> list;
+
 
     public AdapterPunissements(List<EntityPunissement> list) {
         this.list = list;
+    }
+
+    public static AdapterPunissements getInstance(List<EntityPunissement> list) {
+        if (instance == null) {
+            instance = new AdapterPunissements(list);
+        }
+        return instance;
     }
 
     @Override

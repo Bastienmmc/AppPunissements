@@ -3,12 +3,12 @@ package com.ldnr.punissement.ui.main.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityStagiaires  implements IEntity{
+public class EntityStagiaires implements IEntity {
 
     private static List<EntityStagiaires> list = new ArrayList();
 
     private int id;
-    private String name;
+    private String lastname;
     private String firstname;
     private String path_photo;
     private String mail;
@@ -16,46 +16,58 @@ public class EntityStagiaires  implements IEntity{
     private int id_groupe;
 
 
-    public EntityStagiaires(int id, String name, String firstname, String path_photo, String mail, String sms, int id_groupe) {
+    public EntityStagiaires(int id, String lastname, String firstname, String path_photo, String mail, String sms, int id_groupe) {
         this.id = id;
-        this.name = name;
         this.firstname = firstname;
+        this.lastname = lastname;
         this.path_photo = path_photo;
         this.mail = mail;
         this.sms = sms;
         this.id_groupe = id_groupe;
     }
-
-    public void setName(String name) {
-        this.name = name;
+    public EntityStagiaires(){
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public EntityStagiaires(String lastname) {
+        this.lastname = lastname;
     }
 
-    public void setPath_photo(String path_photo) {
-        this.path_photo = path_photo;
+    public static List<EntityStagiaires> getList() {
+        // list.add(new EntityStagiaires("stagiares"));
+        return list;
     }
 
-    public void setmail(String mail) {
-        this.mail = mail;
+    public static void setList(List list1) {
+        list = list1;
     }
 
-    public void setsms(String sms) {
-        this.mail = sms;
+    public static void addElement(EntityStagiaires el) {
+        list.add(el);
     }
 
-    public String getName() {
-        return name;
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getFirstname() {
         return firstname;
     }
 
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
     public String getPath_photo() {
         return path_photo;
+    }
+
+    public void setPath_photo(String path_photo) {
+        this.path_photo = path_photo;
     }
 
     public String getSms() {
@@ -70,27 +82,27 @@ public class EntityStagiaires  implements IEntity{
         return id_groupe;
     }
 
-    public EntityStagiaires(String name) {
-        this.name = name;
-    }
-
-    public static List<EntityStagiaires> getList() {
-       // list.add(new EntityStagiaires("stagiares"));
-        return list;
-    }
-    public static void addElement(EntityStagiaires el){
-        list.add(el);
-    }
-
-    public static void setList(List list1) {
-        list = list1;
-    }
-
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getLastAndFirstName() {
+        return lastname + " " + firstname;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public void setSms(String sms) {
+        this.sms = sms;
+    }
+
+    public void setId_groupe(int id_groupe) {
+        this.id_groupe = id_groupe;
     }
 }

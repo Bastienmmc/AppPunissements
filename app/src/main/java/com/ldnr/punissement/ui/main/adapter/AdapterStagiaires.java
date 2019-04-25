@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ldnr.punissement.R;
-import com.ldnr.punissement.ui.main.entity.EntityPunissement;
 import com.ldnr.punissement.ui.main.entity.EntityStagiaires;
 import com.ldnr.punissement.ui.main.viewHolder.StagiairesViewHolder;
 
@@ -14,19 +13,18 @@ import java.util.List;
 
 public class AdapterStagiaires extends RecyclerView.Adapter<StagiairesViewHolder> {
     public static AdapterStagiaires instance;
-
-    public static AdapterStagiaires getInstance(List<EntityStagiaires> list){
-        if (instance == null){
-            instance=new AdapterStagiaires(list);
-        }
-        return instance;
-    }
-
-
     List<EntityStagiaires> list;
+
 
     public AdapterStagiaires(List<EntityStagiaires> list) {
         this.list = list;
+    }
+
+    public static AdapterStagiaires getInstance(List<EntityStagiaires> list) {
+        if (instance == null) {
+            instance = new AdapterStagiaires(list);
+        }
+        return instance;
     }
 
     @Override

@@ -14,17 +14,18 @@ import java.util.List;
 public class AdapterGroupes extends RecyclerView.Adapter<GropesViewHolder> {
     public static AdapterGroupes instance;
 
-    public static AdapterGroupes getInstance(List<EntityGroupes> list){
-        if (instance == null){
-            instance=new AdapterGroupes(list);
-        }
-        return instance;
-    }
+    private List<EntityGroupes> list;
 
-    List<EntityGroupes> list;
 
     public AdapterGroupes(List<EntityGroupes> list) {
         this.list = list;
+    }
+
+    public static AdapterGroupes getInstance(List<EntityGroupes> list) {
+        if (instance == null) {
+            instance = new AdapterGroupes(list);
+        }
+        return instance;
     }
 
     @Override
@@ -36,7 +37,7 @@ public class AdapterGroupes extends RecyclerView.Adapter<GropesViewHolder> {
     //c'est ici que nous allons remplir notre cellule avec le texte/image de chaque MyObjects
     @Override
     public void onBindViewHolder(GropesViewHolder gropesViewHolder, int position) {
-        EntityGroupes entityGroupes = list.get(position);
+        EntityGroupes entityGroupes = (EntityGroupes) list.get(position);
         gropesViewHolder.bind(entityGroupes);
     }
 

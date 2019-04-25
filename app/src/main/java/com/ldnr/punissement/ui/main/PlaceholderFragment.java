@@ -1,17 +1,12 @@
 package com.ldnr.punissement.ui.main;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +15,9 @@ import android.widget.TextView;
 import com.ldnr.punissement.R;
 import com.ldnr.punissement.ui.main.ViewModel.GroupesViewModel;
 import com.ldnr.punissement.ui.main.ViewModel.IViewModel;
-import com.ldnr.punissement.ui.main.ViewModel.PageViewModel;
 import com.ldnr.punissement.ui.main.ViewModel.PunissementsViewModel;
 import com.ldnr.punissement.ui.main.ViewModel.StagiairesViewModel;
-import com.ldnr.punissement.ui.main.viewHolder.StagiairesViewHolder;
-
-import java.util.List;
+import com.ldnr.punissement.ui.main.ViewModel.TypePunitionViewModel;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -37,7 +29,7 @@ public class PlaceholderFragment extends Fragment {
     private IViewModel pageViewModel;
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
-
+    private int index;
 
     public static PlaceholderFragment newInstance(int index) {
 
@@ -55,7 +47,7 @@ public class PlaceholderFragment extends Fragment {
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
         }
-        switch (index){
+        switch (index) {
             case 1:
                 this.pageViewModel = ViewModelProviders.of(this).get(PunissementsViewModel.class);
                 break;
@@ -65,9 +57,18 @@ public class PlaceholderFragment extends Fragment {
             case 3:
                 this.pageViewModel = ViewModelProviders.of(this).get(GroupesViewModel.class);
                 break;
+            case 4:
+                this.pageViewModel = ViewModelProviders.of(this).get(TypePunitionViewModel.class);
+                break;
         }
-
+        this.index = index;
         pageViewModel.setIndex(index);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.setAdapter(pageViewModel.getAdapter());
     }
 
     @Override
@@ -76,9 +77,7 @@ public class PlaceholderFragment extends Fragment {
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
 
-
         final TextView textView = root.findViewById(R.id.section_label);
-
 
         recyclerView = root.findViewById(R.id.recyclerView);
         fab = root.findViewById(R.id.fab);
@@ -87,13 +86,11 @@ public class PlaceholderFragment extends Fragment {
 
 
         fab.setOnClickListener(pageViewModel.getFabFunction());
+
         recyclerView.setAdapter(pageViewModel.getAdapter());
 
-
-
-
         recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(root.getContext(), recyclerView,    pageViewModel.getTouchListenerFunction()     ));
+                new RecyclerItemClickListener(root.getContext(), recyclerView, pageViewModel.getTouchListenerFunction()));
 
         return root;
     }

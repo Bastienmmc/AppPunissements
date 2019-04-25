@@ -1,11 +1,11 @@
 package com.ldnr.punissement.ui.main.screens;
 
-import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.Toast;
 
 import com.ldnr.punissement.R;
@@ -14,8 +14,10 @@ public class CreateActivity extends AppCompatActivity {
     public final CreateGroupesFragment fragmentCreateGroupes = new CreateGroupesFragment();
     public final CreatePunissementFragment fragmentCreatePunissements = new CreatePunissementFragment();
     public final CreateStagiaresFragment fragmentCreateStagiaires = new CreateStagiaresFragment();
+    public final CreateTypePunitionFragment fragmentCreateTypePunition = new CreateTypePunitionFragment();
 
     public FragmentManager fragmentManager;
+    private int pos_tab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,20 +28,21 @@ public class CreateActivity extends AppCompatActivity {
         try {
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
-                int pos_tab = extras.getInt("pos_tab");
-                int pos_list= extras.getInt("pos_list");
-                switch (pos_tab){
-                    case(1):
-                        this.openFragmentTab1(pos_list);
-                        Toast.makeText(this, "Apri 1!", Toast.LENGTH_LONG).show();
+                pos_tab = extras.getInt("pos_tab");
+                int pos_list = extras.getInt("pos_list");
+                String operation = extras.getString("operation");
+                switch (pos_tab) {
+                    case (1):
+                        this.openFragmentTab1(pos_list,operation);
                         break;
-                    case(2):
-                        this.openFragmentTab2(pos_list);
-                        Toast.makeText(this, "Apri 2!", Toast.LENGTH_LONG).show();
+                    case (2):
+                        this.openFragmentTab2(pos_list,operation);
                         break;
-                    case(3):
-                        this.openFragmentTab3(pos_list);
-                        //Toast.makeText(this, "Apri 3!", Toast.LENGTH_LONG).show();
+                    case (3):
+                        this.openFragmentTab3(pos_list,operation);
+                        break;
+                    case (4):
+                        this.openFragmentTab4(pos_list,operation);
                         break;
                     default:
                         Toast.makeText(this, "Error lecture!", Toast.LENGTH_LONG).show();
@@ -47,20 +50,6 @@ public class CreateActivity extends AppCompatActivity {
                         break;
                 }
 
-             /*   if (pos_tab < 1) {
-
-                }
-                if (pos_tab == 1) {
-                    //new picture
-                    this.pos_list = -1;
-                    this.pictureRead = null;
-                    bDelete.setVisibility(View.INVISIBLE);
-                    bUpdate.setVisibility(View.INVISIBLE);
-                }
-                if (pos_tab >= 0) {
-                    //update delete
-                    readPicture(pos_list);
-                }*/
 
             }
         } catch (Exception e) {
@@ -69,31 +58,68 @@ public class CreateActivity extends AppCompatActivity {
 
     }
 
-    public void openFragmentTab1(int pos){
+    public void openFragmentTab1(int pos, String operation) {
         Bundle dataBundle = new Bundle();
         dataBundle.putInt("pos_list", pos);  //-1 if for new data
+        dataBundle.putString("operation", operation);  //insert / delete / update
         fragmentCreatePunissements.setArguments(dataBundle);
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(android.R.id.content, this.fragmentCreatePunissements);
         fragmentTransaction.commit();
     }
-    public void openFragmentTab2(int pos){
+
+    public void openFragmentTab2(int pos,String operation) {
         Bundle dataBundle = new Bundle();
         dataBundle.putInt("pos_list", pos);  //-1 if for new data
+        dataBundle.putString("operation", operation);  //insert / delete / update
         fragmentCreateStagiaires.setArguments(dataBundle);
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(android.R.id.content, this.fragmentCreateStagiaires);
         fragmentTransaction.commit();
     }
-    public void openFragmentTab3(int pos){
+
+    public void openFragmentTab3(int pos,String operation) {
         Bundle dataBundle = new Bundle();
         dataBundle.putInt("pos_list", pos);  //-1 if for new data
+        dataBundle.putString("operation", operation);  //insert / delete / update
         fragmentCreateGroupes.setArguments(dataBundle);
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(android.R.id.content, fragmentCreateGroupes);
         fragmentTransaction.commit();
     }
+    public void openFragmentTab4(int pos,String operation) {
+        Bundle dataBundle = new Bundle();
+        dataBundle.putInt("pos_list", pos);  //-1 if for new data
+        dataBundle.putString("operation", operation);  //insert / delete / update
+        fragmentCreateTypePunition.setArguments(dataBundle);
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(android.R.id.content, fragmentCreateTypePunition);
+        fragmentTransaction.commit();
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (pos_tab) {
+            case (1):
+                fragmentCreatePunissements.onActivityResult(requestCode, resultCode, data);
+                break;
+            case (2):
+                fragmentCreateStagiaires.onActivityResult(requestCode, resultCode, data);
+                break;
+            case (3):
+                fragmentCreateGroupes.onActivityResult(requestCode, resultCode, data);
+                break;
+            case (4):
+                fragmentCreateTypePunition.onActivityResult(requestCode, resultCode, data);
+                break;
+            default:
+                Toast.makeText(this, "Error lecture!", Toast.LENGTH_LONG).show();
+                finish();
+                break;
+
+    }
+}
 }
