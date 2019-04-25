@@ -23,10 +23,14 @@ import com.ldnr.punissement.BuildConfig;
 import com.ldnr.punissement.R;
 import com.ldnr.punissement.ui.main.DAO.StagiaireHelper;
 import com.ldnr.punissement.ui.main.Services.StorageService;
+import com.ldnr.punissement.ui.main.ViewModel.PunissementsViewModel;
+import com.ldnr.punissement.ui.main.ViewModel.StagiairesViewModel;
 import com.ldnr.punissement.ui.main.adapter.AdapterStagiaires;
+import com.ldnr.punissement.ui.main.adapter.AdapterTypePunition;
 import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 import com.ldnr.punissement.ui.main.entity.EntitySpinner;
 import com.ldnr.punissement.ui.main.entity.EntityStagiaires;
+import com.ldnr.punissement.ui.main.entity.EntityTypePunition;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -122,8 +126,8 @@ public class CreateStagiaresFragment extends Fragment {
                     this.initUpdate(pos);
                     break;
                 case "delete":
-                    StagiaireHelper.getInstance(this.getContext()).delete(EntityStagiaires.getList().get(pos));
-                    EntityStagiaires.getList().remove(pos);
+                   /* StagiaireHelper.getInstance(this.getContext()).delete(EntityStagiaires.getList().get(pos));
+                    EntityStagiaires.getList().remove(pos);*/
                     getActivity().finish();
                     break;
                 default:
@@ -195,7 +199,8 @@ public class CreateStagiaresFragment extends Fragment {
                 StagiaireHelper.getInstance(this.getContext()).update(this.entityStagiaires);
                 // EntityStagiaires.getList().add(this.pos, this.entityStagiaires);
             }
-
+            AdapterStagiaires.getInstance(null).setList(EntityStagiaires.getList());
+            StagiairesViewModel.getStaticAdapter().notifyDataSetChanged();
             getActivity().finish();
         }
     }

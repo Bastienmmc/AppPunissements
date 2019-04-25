@@ -26,8 +26,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GroupesViewModel extends ViewModel implements IViewModel {
-    private static final RecyclerView.Adapter adapter = AdapterGroupes.getInstance(EntityGroupes.getList());
+    private static RecyclerView.Adapter adapter = AdapterGroupes.getInstance(EntityGroupes.getList());
 
+    public static RecyclerView.Adapter getStaticAdapter(){
+        return adapter;
+    }
 
     public GroupesViewModel() {
     }

@@ -13,7 +13,11 @@ import android.widget.Toast;
 
 import com.ldnr.punissement.R;
 import com.ldnr.punissement.ui.main.DAO.TypePunitionHelper;
+import com.ldnr.punissement.ui.main.ViewModel.StagiairesViewModel;
+import com.ldnr.punissement.ui.main.ViewModel.TypePunitionViewModel;
+import com.ldnr.punissement.ui.main.adapter.AdapterGroupes;
 import com.ldnr.punissement.ui.main.adapter.AdapterTypePunition;
+import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityTypePunition;
 
 import java.util.regex.Matcher;
@@ -69,8 +73,8 @@ public class CreateTypePunitionFragment extends Fragment {
                     this.initUpdate(pos);
                     break;
                 case "delete":
-                    TypePunitionHelper.getInstance(this.getContext()).delete(EntityTypePunition.getList().get(pos));
-                    EntityTypePunition.getList().remove(pos);
+                   /* TypePunitionHelper.getInstance(this.getContext()).delete(EntityTypePunition.getList().get(pos));
+                    EntityTypePunition.getList().remove(pos);*/
                     getActivity().finish();
                     break;
                 default:
@@ -117,7 +121,8 @@ public class CreateTypePunitionFragment extends Fragment {
                 TypePunitionHelper.getInstance(this.getContext()).update(this.entityTypePunition);
 
             }
-
+            AdapterTypePunition.getInstance(null).setList(EntityTypePunition.getList());
+            TypePunitionViewModel.getStaticAdapter().notifyDataSetChanged();
             getActivity().finish();
         }
 

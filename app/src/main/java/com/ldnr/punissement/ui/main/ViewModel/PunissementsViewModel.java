@@ -26,7 +26,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PunissementsViewModel extends ViewModel implements IViewModel {
-    private RecyclerView.Adapter adapter = AdapterPunissements.getInstance(EntityPunissement.getList());
+    private static final RecyclerView.Adapter adapter = AdapterPunissements.getInstance(EntityPunissement.getList());
+    public static RecyclerView.Adapter getStaticAdapter(){
+        return adapter;
+    }
 
     public PunissementsViewModel() {
     }

@@ -21,6 +21,8 @@ import com.ldnr.punissement.BuildConfig;
 import com.ldnr.punissement.R;
 import com.ldnr.punissement.ui.main.DAO.GroupeHelper;
 import com.ldnr.punissement.ui.main.Services.StorageService;
+import com.ldnr.punissement.ui.main.ViewModel.GroupesViewModel;
+import com.ldnr.punissement.ui.main.ViewModel.StagiairesViewModel;
 import com.ldnr.punissement.ui.main.adapter.AdapterGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 
@@ -90,8 +92,9 @@ public class CreateGroupesFragment extends Fragment {
                     this.initUpdate(pos);
                     break;
                 case "delete":
-                    GroupeHelper.getInstance(this.getContext()).delete(EntityGroupes.getList().get(pos));
-                    EntityGroupes.getList().remove(pos);
+                    /*GroupeHelper.getInstance(this.getContext()).delete(EntityGroupes.getList().get(pos));
+                    EntityGroupes.setList(GroupeHelper.getInstance(this.getContext()).getList());
+                    AdapterGroupes.getInstance(null).getList().remove(pos);*/
                     getActivity().finish();
                     break;
                 default:
@@ -165,6 +168,8 @@ public class CreateGroupesFragment extends Fragment {
                 GroupeHelper.getInstance(this.getContext()).update(this.entityGroupes);
             }
 
+            AdapterGroupes.getInstance(null).setList(EntityGroupes.getList());
+            GroupesViewModel.getStaticAdapter().notifyDataSetChanged();
             getActivity().finish();
         }
     }

@@ -19,8 +19,12 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ldnr.punissement.R;
+import com.ldnr.punissement.ui.main.DAO.GroupeHelper;
 import com.ldnr.punissement.ui.main.DAO.PunitionHelper;
+import com.ldnr.punissement.ui.main.ViewModel.PunissementsViewModel;
+import com.ldnr.punissement.ui.main.adapter.AdapterGroupes;
 import com.ldnr.punissement.ui.main.adapter.AdapterPunissements;
+import com.ldnr.punissement.ui.main.adapter.AdapterTypePunition;
 import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityPunissement;
 import com.ldnr.punissement.ui.main.entity.EntitySpinner;
@@ -165,8 +169,9 @@ public class CreatePunissementFragment extends Fragment {
                     this.initUpdate(pos);
                     break;
                 case "delete":
-                    PunitionHelper.getInstance(this.getContext()).delete(EntityPunissement.getList().get(pos));
-                    EntityPunissement.getList().remove(pos);
+                    PunitionHelper.getInstance(this.getContext()).delete(AdapterPunissements.getInstance(null).getList().get(pos));
+                    AdapterPunissements.getInstance(null).getList().remove(pos);
+                    PunissementsViewModel.getStaticAdapter().notifyDataSetChanged();
                     getActivity().finish();
                     break;
                 default:
@@ -258,7 +263,8 @@ public class CreatePunissementFragment extends Fragment {
             } else {
                 PunitionHelper.getInstance(this.getContext()).update(this.entityPunissement);
             }
-
+            AdapterPunissements.getInstance(null).setList(EntityPunissement.getList());
+            PunissementsViewModel.getStaticAdapter().notifyDataSetChanged();
             getActivity().finish();
         }
     }

@@ -9,7 +9,6 @@ import com.ldnr.punissement.R;
 import com.ldnr.punissement.ui.main.Services.StorageService;
 import com.ldnr.punissement.ui.main.entity.EntityStagiaires;
 
-
 public class StagiairesViewHolder extends RecyclerView.ViewHolder {
 
     private TextView textViewNom;

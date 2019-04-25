@@ -1,6 +1,7 @@
 package com.ldnr.punissement.ui.main.viewHolder;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -36,6 +37,8 @@ public class PunissementsViewHolder extends RecyclerView.ViewHolder {
     //puis ajouter une fonction pour remplir la cellule en fonction d'un MyObject
     public void bind(EntityPunissement entityPunissement) {
         textViewTitle.setText(entityPunissement.getTitle());
+        Log.d("testing", "#################"+entityPunissement.getTitle());
+
         textViewDate.setText(entityPunissement.getDate());
         if (entityPunissement.getId_stagiaire() > 0) {
             EntityStagiaires a = (EntityStagiaires) StagiaireHelper.getInstance(null).getElement(entityPunissement.getId_stagiaire());
