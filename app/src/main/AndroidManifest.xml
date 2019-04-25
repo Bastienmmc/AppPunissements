@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.main.screens.CreateActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".AppActivity"/>
 
         <activity
             android:name=".AppActivity"
