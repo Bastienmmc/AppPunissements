@@ -13,8 +13,8 @@ import java.util.List;
 
 public class AdapterStagiaires extends RecyclerView.Adapter<StagiairesViewHolder> {
     public static AdapterStagiaires instance;
-    List<EntityStagiaires> list;
 
+    private List<EntityStagiaires> list;
 
     public AdapterStagiaires(List<EntityStagiaires> list) {
         this.list = list;
@@ -25,6 +25,14 @@ public class AdapterStagiaires extends RecyclerView.Adapter<StagiairesViewHolder
             instance = new AdapterStagiaires(list);
         }
         return instance;
+    }
+
+    public List<EntityStagiaires> getList() {
+        return list;
+    }
+
+    public void setList(List<EntityStagiaires> list) {
+        this.list = list;
     }
 
     @Override

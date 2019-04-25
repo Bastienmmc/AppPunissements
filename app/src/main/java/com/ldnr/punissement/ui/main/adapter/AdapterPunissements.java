@@ -13,8 +13,7 @@ import java.util.List;
 
 public class AdapterPunissements extends RecyclerView.Adapter<PunissementsViewHolder> {
     public static AdapterPunissements instance;
-    List<EntityPunissement> list;
-
+    private List<EntityPunissement> list;
 
     public AdapterPunissements(List<EntityPunissement> list) {
         this.list = list;
@@ -27,6 +26,14 @@ public class AdapterPunissements extends RecyclerView.Adapter<PunissementsViewHo
         return instance;
     }
 
+    public List<EntityPunissement> getList() {
+        return list;
+    }
+
+    public void setList(List<EntityPunissement> list) {
+        this.list = list;
+    }
+
     @Override
     public PunissementsViewHolder onCreateViewHolder(ViewGroup viewGroup, int itemType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_punissement, viewGroup, false);
@@ -36,11 +43,15 @@ public class AdapterPunissements extends RecyclerView.Adapter<PunissementsViewHo
     @Override
     public void onBindViewHolder(PunissementsViewHolder viewHolderPunissement, int position) {
         EntityPunissement entityPunissement = list.get(position);
+
         viewHolderPunissement.bind(entityPunissement);
     }
 
     @Override
     public int getItemCount() {
+
         return list.size();
     }
+
+
 }

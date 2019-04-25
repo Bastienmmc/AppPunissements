@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityStagiaires;
 import com.ldnr.punissement.ui.main.entity.IEntity;
 
@@ -27,25 +26,16 @@ public class StagiaireHelper extends SQLiteOpenHelper implements IDaoHelper {
     private static final String TABLE_STAGIAIRE_COLUMN_MAIL = "mail_stagiaire";
     private static final String TABLE_STAGIAIRE_COLUMN_SMS = "sms_stagiaire";
     private static final String TABLE_STAGIAIRE_COLUMN_ID_GROUPE = "id_groupe";
-
-
+    private static StagiaireHelper instance;
     // Déclaration méthodes d'accès à la BDD
     private SQLiteDatabase dbWrite = this.getWritableDatabase();
     private SQLiteDatabase dbRead = this.getReadableDatabase();
-
-    private static StagiaireHelper instance;
-    public static StagiaireHelper getInstance(Context context) {
-        if (instance == null) {
-            instance = new StagiaireHelper(context);
-        }
-        return instance;
-    }
 
     // Constructeur
     private StagiaireHelper(Context context) {
 
         super(context, DATABASE_NAME, null, 2);
-        try{
+        try {
             dbWrite.execSQL("CREATE TABLE " + TABLE_STAGIAIRE_NAME
                     + " ( " + TABLE_STAGIAIRE_COLUMN_ID + " integer primary key, "
                     + TABLE_STAGIAIRE_COLUMN_LASTNAME + " text , "
@@ -55,11 +45,17 @@ public class StagiaireHelper extends SQLiteOpenHelper implements IDaoHelper {
                     + TABLE_STAGIAIRE_COLUMN_SMS + " text , "
                     + TABLE_STAGIAIRE_COLUMN_ID_GROUPE + " integer )"
             );
-        }catch(SQLException e){
+        } catch (SQLException e) {
 
         }
     }
 
+    public static StagiaireHelper getInstance(Context context) {
+        if (instance == null) {
+            instance = new StagiaireHelper(context);
+        }
+        return instance;
+    }
 
     // OnCreate : création table stagiaire
     @Override
@@ -97,7 +93,7 @@ public class StagiaireHelper extends SQLiteOpenHelper implements IDaoHelper {
             value.put(TABLE_STAGIAIRE_COLUMN_ID_GROUPE, pStagiaire.getId_groupe());
 
             dbWrite.insert(TABLE_STAGIAIRE_NAME, null, value);
-           // dbWrite.insertOrThrow(TABLE_STAGIAIRE_NAME, null, value);
+            // dbWrite.insertOrThrow(TABLE_STAGIAIRE_NAME, null, value);
 
             Cursor res = dbRead.rawQuery("SELECT * FROM " + TABLE_STAGIAIRE_NAME + " ORDER BY " + TABLE_STAGIAIRE_COLUMN_ID + " DESC LIMIT 1", null);
             if (res != null && res.getCount() > 0) {
@@ -105,7 +101,7 @@ public class StagiaireHelper extends SQLiteOpenHelper implements IDaoHelper {
                 pStagiaire.setId(res.getInt(res.getColumnIndex(TABLE_STAGIAIRE_COLUMN_ID)));
             }
         } catch (SQLException e) {
-            Log.d("testing","#########"+e.getMessage());
+            Log.d("testing", "#########" + e.getMessage());
         }
     }
 
@@ -184,24 +180,24 @@ public class StagiaireHelper extends SQLiteOpenHelper implements IDaoHelper {
         EntityStagiaires stagiaire = new EntityStagiaires();
         try {
 
-            Cursor cursor =dbRead.query(
+            Cursor cursor = dbRead.query(
                     TABLE_STAGIAIRE_NAME /* table */,
-                    new String[] {TABLE_STAGIAIRE_COLUMN_ID, TABLE_STAGIAIRE_COLUMN_LASTNAME, TABLE_STAGIAIRE_COLUMN_FIRSTNAME, TABLE_STAGIAIRE_COLUMN_PATH_PHOTO, TABLE_STAGIAIRE_COLUMN_MAIL, TABLE_STAGIAIRE_COLUMN_SMS, TABLE_STAGIAIRE_COLUMN_ID_GROUPE} /* columns */,
-                    TABLE_STAGIAIRE_COLUMN_ID +" = ?" /* where or selection */,
-                    new String[] { String.valueOf(id) } /* selectionArgs i.e. value to replace ? */,
+                    new String[]{TABLE_STAGIAIRE_COLUMN_ID, TABLE_STAGIAIRE_COLUMN_LASTNAME, TABLE_STAGIAIRE_COLUMN_FIRSTNAME, TABLE_STAGIAIRE_COLUMN_PATH_PHOTO, TABLE_STAGIAIRE_COLUMN_MAIL, TABLE_STAGIAIRE_COLUMN_SMS, TABLE_STAGIAIRE_COLUMN_ID_GROUPE} /* columns */,
+                    TABLE_STAGIAIRE_COLUMN_ID + " = ?" /* where or selection */,
+                    new String[]{String.valueOf(id)} /* selectionArgs i.e. value to replace ? */,
                     null /* groupBy */,
                     null /* having */,
                     null /* orderBy */
             );
 
-            if (cursor != null){
+            if (cursor != null) {
                 cursor.moveToFirst();
                 stagiaire.setId(cursor.getInt(cursor.getColumnIndex(TABLE_STAGIAIRE_COLUMN_ID)));
                 stagiaire.setLastname(cursor.getString(cursor.getColumnIndex(TABLE_STAGIAIRE_COLUMN_LASTNAME)));
                 stagiaire.setFirstname(cursor.getString(cursor.getColumnIndex(TABLE_STAGIAIRE_COLUMN_FIRSTNAME)));
                 stagiaire.setPath_photo(cursor.getString(cursor.getColumnIndex(TABLE_STAGIAIRE_COLUMN_PATH_PHOTO)));
                 stagiaire.setMail(cursor.getString(cursor.getColumnIndex(TABLE_STAGIAIRE_COLUMN_MAIL)));
-                stagiaire.setSms(cursor.getString(cursor.getColumnIndex(TABLE_STAGIAIRE_COLUMN_SMS )));
+                stagiaire.setSms(cursor.getString(cursor.getColumnIndex(TABLE_STAGIAIRE_COLUMN_SMS)));
                 stagiaire.setId_groupe(cursor.getInt(cursor.getColumnIndex(TABLE_STAGIAIRE_COLUMN_ID_GROUPE)));
 
             }
@@ -215,9 +211,10 @@ public class StagiaireHelper extends SQLiteOpenHelper implements IDaoHelper {
 
 
     }
+
     @Override
-    public void deleteAllElelementsTable(){
-        dbWrite.execSQL("DELETE FROM "+TABLE_STAGIAIRE_NAME);
+    public void deleteAllElelementsTable() {
+        dbWrite.execSQL("DELETE FROM " + TABLE_STAGIAIRE_NAME);
     }
 
 }

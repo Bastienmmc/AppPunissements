@@ -20,32 +20,31 @@ public class GroupeHelper extends SQLiteOpenHelper implements IDaoHelper {
     private static final String TABLE_GROUPE_COLUMN_ID = "id_groupe";
     private static final String TABLE_GROUPE_COLUMN_LIBELLE = "libelle_groupe";
     private static final String TABLE_GROUPE_COLUMN_PATH_PHOTO = "path_photo_groupe";
-
+    private static GroupeHelper instance;
     // Déclaration méthodes d'accès à la BDD
     private SQLiteDatabase dbWrite = this.getWritableDatabase();
     private SQLiteDatabase dbRead = this.getReadableDatabase();
 
-    private static GroupeHelper instance;
+    // Constructeur
+    private GroupeHelper(Context context) {
+        super(context, DATABASE_NAME, null, 2);
+        try {
+            dbWrite.execSQL("CREATE TABLE " + TABLE_GROUPE_NAME
+                    + " ( " + TABLE_GROUPE_COLUMN_ID + " integer primary key, "
+                    + TABLE_GROUPE_COLUMN_LIBELLE + " text , "
+                    + TABLE_GROUPE_COLUMN_PATH_PHOTO + " text )"
+            );
+        } catch (SQLException e) {
+
+        }
+    }
+
     public static GroupeHelper getInstance(Context context) {
         if (instance == null) {
             instance = new GroupeHelper(context);
         }
         return instance;
     }
-    // Constructeur
-    private GroupeHelper(Context context) {
-        super(context, DATABASE_NAME, null, 2);
-        try{
-            dbWrite.execSQL("CREATE TABLE " + TABLE_GROUPE_NAME
-                    + " ( " + TABLE_GROUPE_COLUMN_ID + " integer primary key, "
-                    + TABLE_GROUPE_COLUMN_LIBELLE + " text , "
-                    + TABLE_GROUPE_COLUMN_PATH_PHOTO + " text )"
-            );
-        }catch(SQLException e){
-
-        }
-    }
-
 
     // OnCreate : création table groupe
     @Override
@@ -154,11 +153,11 @@ public class GroupeHelper extends SQLiteOpenHelper implements IDaoHelper {
         EntityGroupes groupe = new EntityGroupes();
         try {
 
-            Cursor cursor =dbRead.query(
+            Cursor cursor = dbRead.query(
                     TABLE_GROUPE_NAME /* table */,
-                    new String[] { TABLE_GROUPE_COLUMN_ID,TABLE_GROUPE_COLUMN_LIBELLE, TABLE_GROUPE_COLUMN_PATH_PHOTO } /* columns */,
+                    new String[]{TABLE_GROUPE_COLUMN_ID, TABLE_GROUPE_COLUMN_LIBELLE, TABLE_GROUPE_COLUMN_PATH_PHOTO} /* columns */,
                     TABLE_GROUPE_COLUMN_ID + " = ?" /* where or selection */,
-                    new String[] { String.valueOf(id) } /* selectionArgs i.e. value to replace ? */,
+                    new String[]{String.valueOf(id)} /* selectionArgs i.e. value to replace ? */,
                     null /* groupBy */,
                     null /* having */,
                     null /* orderBy */
@@ -169,7 +168,7 @@ public class GroupeHelper extends SQLiteOpenHelper implements IDaoHelper {
                     TABLE_GROUPE_COLUMN_ID + "=?",
                     new String[]{String.valueOf(id)}, null, null, null, null);*/
 
-            if (cursor != null){
+            if (cursor != null) {
                 cursor.moveToFirst();
                 groupe.setId(cursor.getInt(cursor.getColumnIndex(TABLE_GROUPE_COLUMN_ID)));
                 groupe.setLibelle_groupe(cursor.getString(cursor.getColumnIndex(TABLE_GROUPE_COLUMN_LIBELLE)));
@@ -186,8 +185,8 @@ public class GroupeHelper extends SQLiteOpenHelper implements IDaoHelper {
     }
 
     @Override
-    public void deleteAllElelementsTable(){
-        dbWrite.execSQL("DELETE FROM "+TABLE_GROUPE_NAME);
+    public void deleteAllElelementsTable() {
+        dbWrite.execSQL("DELETE FROM " + TABLE_GROUPE_NAME);
     }
 
 }

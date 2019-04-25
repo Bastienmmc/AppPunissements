@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import com.ldnr.punissement.R;
 import com.ldnr.punissement.ui.main.entity.EntityTypePunition;
-import com.ldnr.punissement.ui.main.viewHolder.GropesViewHolder;
 import com.ldnr.punissement.ui.main.viewHolder.TypePunitionViewHolder;
 
 import java.util.List;
@@ -18,7 +17,6 @@ public class AdapterTypePunition extends RecyclerView.Adapter<TypePunitionViewHo
 
     private List<EntityTypePunition> list;
 
-
     public AdapterTypePunition(List<EntityTypePunition> list) {
         this.list = list;
     }
@@ -28,6 +26,14 @@ public class AdapterTypePunition extends RecyclerView.Adapter<TypePunitionViewHo
             instance = new AdapterTypePunition(list);
         }
         return instance;
+    }
+
+    public List<EntityTypePunition> getList() {
+        return list;
+    }
+
+    public void setList(List<EntityTypePunition> list) {
+        this.list = list;
     }
 
     @Override

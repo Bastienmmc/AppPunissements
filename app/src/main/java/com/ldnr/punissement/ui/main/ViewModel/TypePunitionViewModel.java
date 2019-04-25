@@ -8,7 +8,6 @@ import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -17,11 +16,14 @@ import android.view.View;
 
 import com.ldnr.punissement.R;
 import com.ldnr.punissement.ui.main.RecyclerItemClickListener;
-import com.ldnr.punissement.ui.main.adapter.AdapterGroupes;
 import com.ldnr.punissement.ui.main.adapter.AdapterTypePunition;
-import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityTypePunition;
 import com.ldnr.punissement.ui.main.screens.CreateActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class TypePunitionViewModel extends ViewModel implements IViewModel {
@@ -29,6 +31,17 @@ public class TypePunitionViewModel extends ViewModel implements IViewModel {
 
 
     public TypePunitionViewModel() {
+    }
+
+    private static Activity scanForActivity(Context cont) {
+        if (cont == null)
+            return null;
+        else if (cont instanceof Activity)
+            return (Activity) cont;
+        else if (cont instanceof ContextWrapper)
+            return scanForActivity(((ContextWrapper) cont).getBaseContext());
+
+        return null;
     }
 
     public void setIndex(int index) {
@@ -39,37 +52,36 @@ public class TypePunitionViewModel extends ViewModel implements IViewModel {
         return adapter;
     }
 
-
     public View.OnClickListener getFabFunction() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openCreateActivity(view, 4, -1,"insert");
+                openCreateActivity(view, 4, -1, "insert");
             }
         };
     }
-
 
     public RecyclerItemClickListener.OnItemClickListener getTouchListenerFunction() {
         return new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                openCreateActivity(view, 4, position,"update");
+                openCreateActivity(view, 4, position, "update");
             }
 
             @Override
             public void onLongItemClick(View view, int position) {
-                showActionsDialog(view, 4,position);
+                showActionsDialog(view, 4, position);
             }
         };
 
     }
 
-    public TextWatcher getTextWatcherListener(){
+    public TextWatcher getTextWatcherListener() {
         return new TextWatcher() {
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start,
@@ -79,8 +91,8 @@ public class TypePunitionViewModel extends ViewModel implements IViewModel {
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-               /* if(s.length() != 0)
-                    field2.setText("");*/
+
+                search(s);
             }
         };
     }
@@ -95,8 +107,9 @@ public class TypePunitionViewModel extends ViewModel implements IViewModel {
         openIntent.putExtras(dataBundle);
         context.startActivity(openIntent);
     }
+
     // Affichage d'une boite de dialogue
-    private void showActionsDialog(View view,final int tab, final int pos) {
+    private void showActionsDialog(View view, final int tab, final int pos) {
 
         CharSequence userOptions[] = new CharSequence[]{"Delete", "Cancel"};
 
@@ -108,10 +121,10 @@ public class TypePunitionViewModel extends ViewModel implements IViewModel {
             @Override
             public void onClick(DialogInterface dialogInterface, int userChoice) {
                 // Si l'utilisateur choisit la première option (donc Edit)
-                if(userChoice == 0) {
-                    Dialog dialog  = (Dialog) dialogInterface;
+                if (userChoice == 0) {
+                    Dialog dialog = (Dialog) dialogInterface;
                     Context context = dialog.getContext();
-                    Activity activity= scanForActivity(context);
+                    Activity activity = scanForActivity(context);
 
                     View rootView = (View) activity.findViewById(R.id.tabs);
 
@@ -125,15 +138,21 @@ public class TypePunitionViewModel extends ViewModel implements IViewModel {
         builder.show();
     }
 
-    private static Activity scanForActivity(Context cont) {
-        if (cont == null)
-            return null;
-        else if (cont instanceof Activity)
-            return (Activity)cont;
-        else if (cont instanceof ContextWrapper)
-            return scanForActivity(((ContextWrapper)cont).getBaseContext());
+    private void search(CharSequence str) {
+        List<EntityTypePunition> lista = EntityTypePunition.getList();//getInstance(null).getList();
 
-        return null;
+        Pattern pattern = Pattern.compile(str.toString());
+        List<EntityTypePunition> listaSearch = new ArrayList();
+
+        for (EntityTypePunition el : lista) {
+            Matcher matcher = pattern.matcher((el).toString());
+            if (matcher.find()) {
+                listaSearch.add(el);
+            }
+        }
+
+        AdapterTypePunition.getInstance(listaSearch).setList(listaSearch);
+        adapter.notifyDataSetChanged();
     }
 
 
