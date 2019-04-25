@@ -7,7 +7,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityPunissement;
 import com.ldnr.punissement.ui.main.entity.IEntity;
 
@@ -27,25 +26,15 @@ public class PunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
     private static final String TABLE_PUNITION_COLUMN_ID_GROUPE = "id_groupe_punition";
     private static final String TABLE_PUNITION_COLUMN_LIEU = "lieu_punition";
     private static final String TABLE_PUNITION_COLUMN_DATE = "date_punition";
-
-
+    private static PunitionHelper instance;
     // Déclaration méthodes d'accès à la BDD
     private SQLiteDatabase dbWrite = this.getWritableDatabase();
     private SQLiteDatabase dbRead = this.getReadableDatabase();
 
-    private static PunitionHelper instance;
-    public static PunitionHelper getInstance(Context context) {
-        if (instance == null) {
-            instance = new PunitionHelper(context);
-        }
-        return instance;
-    }
-
-
     // Constructeur
     private PunitionHelper(Context context) {
         super(context, DATABASE_NAME, null, 2);
-        try{
+        try {
             dbWrite.execSQL("CREATE TABLE " + TABLE_PUNITION_NAME
                     + " ( " + TABLE_PUNITION_COLUMN_ID + " integer primary key, "
                     + TABLE_PUNITION_COLUMN_TITLE + " text , "
@@ -56,13 +45,19 @@ public class PunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
                     + TABLE_PUNITION_COLUMN_LIEU + " text ,"
                     + TABLE_PUNITION_COLUMN_DATE + " text )"
             );
-        }catch(SQLException e){
+        } catch (SQLException e) {
 
         }
 
 
     }
 
+    public static PunitionHelper getInstance(Context context) {
+        if (instance == null) {
+            instance = new PunitionHelper(context);
+        }
+        return instance;
+    }
 
     // OnCreate : création table groupe
     @Override
@@ -142,9 +137,7 @@ public class PunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
     @Override
     public void delete(IEntity iEntity) {
         try {
-
             EntityPunissement pPunition = (EntityPunissement) iEntity;
-            EntityGroupes pGroupe = (EntityGroupes) iEntity;
             dbWrite.delete(TABLE_PUNITION_NAME, TABLE_PUNITION_COLUMN_ID + " = ?",
                     new String[]{String.valueOf(pPunition.getId())});
         } catch (SQLException e) {
@@ -215,7 +208,7 @@ public class PunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
     }
 
     @Override
-    public void deleteAllElelementsTable(){
-        dbWrite.execSQL("DELETE FROM "+TABLE_PUNITION_NAME);
+    public void deleteAllElelementsTable() {
+        dbWrite.execSQL("DELETE FROM " + TABLE_PUNITION_NAME);
     }
 }

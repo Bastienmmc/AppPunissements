@@ -13,6 +13,7 @@ public class EntityPunissement implements IEntity {
     private String description;
     private String lieu;
     private String date;
+    private String strAddToString;
 
     private int id_type;
     private int id_stagiaire = 0;
@@ -28,27 +29,13 @@ public class EntityPunissement implements IEntity {
         this.id_groupe = id_groupe;
         this.lieu = lieu;
         this.date = date;
-    }
-
-    public String getLieu() {
-        return lieu;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setLieu(String lieu) {
-        this.lieu = lieu;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+        this.strAddToString="";
     }
 
     public EntityPunissement() {
 
     }
+
     public EntityPunissement(String title) {
         this.title = title;
     }
@@ -63,6 +50,22 @@ public class EntityPunissement implements IEntity {
 
     public static void addElement(EntityPunissement el) {
         list.add(el);
+    }
+
+    public String getLieu() {
+        return lieu;
+    }
+
+    public void setLieu(String lieu) {
+        this.lieu = lieu;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getDescription() {
@@ -113,8 +116,10 @@ public class EntityPunissement implements IEntity {
         this.id = id;
     }
 
-    public String toString(){
-        return this.title + " " + this.description + " " + this.lieu + " " + this.date;
-
+    public String toString() {
+        return this.title + " " + this.description + " " + this.lieu + " " + this.date + " " + this.strAddToString;
+    }
+    public void addToString(String str){
+        this.strAddToString += str + " ";
     }
 }

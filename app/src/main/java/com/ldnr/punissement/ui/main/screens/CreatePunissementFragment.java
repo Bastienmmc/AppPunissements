@@ -1,6 +1,5 @@
 package com.ldnr.punissement.ui.main.screens;
 
-import java.util.Calendar;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +20,7 @@ import android.widget.Toast;
 
 import com.ldnr.punissement.R;
 import com.ldnr.punissement.ui.main.DAO.PunitionHelper;
+import com.ldnr.punissement.ui.main.adapter.AdapterPunissements;
 import com.ldnr.punissement.ui.main.entity.EntityGroupes;
 import com.ldnr.punissement.ui.main.entity.EntityPunissement;
 import com.ldnr.punissement.ui.main.entity.EntitySpinner;
@@ -29,6 +29,7 @@ import com.ldnr.punissement.ui.main.entity.EntityTypePunition;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -63,7 +64,8 @@ public class CreatePunissementFragment extends Fragment {
     private List spinnerType;
     private int selectedAdapter;
 
-    private int mYear,mMonth,mDay;
+    private int mYear, mMonth, mDay;
+
     public CreatePunissementFragment() {
         // Required empty public constructor
     }
@@ -108,7 +110,6 @@ public class CreatePunissementFragment extends Fragment {
             });
 
 
-
             editDate.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -151,12 +152,12 @@ public class CreatePunissementFragment extends Fragment {
             Bundle bundle = this.getArguments();
             if (bundle != null) {
                 pos = bundle.getInt("pos_list");
-                operation= bundle.getString("operation");
+                operation = bundle.getString("operation");
             } else {
                 pos = -1;
-                operation="insert";
+                operation = "insert";
             }
-            switch(operation){
+            switch (operation) {
                 case "insert":
                     this.initInsert();
                     break;
@@ -183,6 +184,7 @@ public class CreatePunissementFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_create_punissement, container, false);
     }
+
     private void initInsert() {
         this.insert = true;
         this.entityPunissement = new EntityPunissement();
@@ -195,7 +197,7 @@ public class CreatePunissementFragment extends Fragment {
 
     private void initUpdate(int pos) {
         this.insert = false;
-        this.entityPunissement = EntityPunissement.getList().get(pos);
+        this.entityPunissement = (EntityPunissement) AdapterPunissements.getInstance(null).getList().get(pos);
 
         editTitle.setText(entityPunissement.getTitle());
         editLibelle.setText(entityPunissement.getDescription());
@@ -224,47 +226,48 @@ public class CreatePunissementFragment extends Fragment {
 
     private void save() {
         String title = editTitle.getText().toString();
-        String description =editLibelle.getText().toString();
-        String lieu= editLieu.getText().toString();
-        String date= editDate.getText().toString();
-        if(Validator(title,description,lieu, date  )){
-        this.entityPunissement.setTitle(title);
-        this.entityPunissement.setDescription(description);
-        this.entityPunissement.setLieu(lieu);
-        this.entityPunissement.setDate(date);
+        String description = editLibelle.getText().toString();
+        String lieu = editLieu.getText().toString();
+        String date = editDate.getText().toString();
+        if (Validator(title, description, lieu, date)) {
+            this.entityPunissement.setTitle(title);
+            this.entityPunissement.setDescription(description);
+            this.entityPunissement.setLieu(lieu);
+            this.entityPunissement.setDate(date);
 
-        EntitySpinner objSelectedSpinner = ((EntitySpinner) spinnerSelectEntity.getSelectedItem());
-        switch (objSelectedSpinner.getType()) {
-            case 1:
-                this.entityPunissement.setId_stagiaire(objSelectedSpinner.getIndex());
-                this.entityPunissement.setId_groupe(0);
-                break;
-            case 2:
-                this.entityPunissement.setId_stagiaire(0);
-                this.entityPunissement.setId_groupe(objSelectedSpinner.getIndex());
-                break;
+            EntitySpinner objSelectedSpinner = ((EntitySpinner) spinnerSelectEntity.getSelectedItem());
+            switch (objSelectedSpinner.getType()) {
+                case 1:
+                    this.entityPunissement.setId_stagiaire(objSelectedSpinner.getIndex());
+                    this.entityPunissement.setId_groupe(0);
+                    break;
+                case 2:
+                    this.entityPunissement.setId_stagiaire(0);
+                    this.entityPunissement.setId_groupe(objSelectedSpinner.getIndex());
+                    break;
+            }
+
+            EntitySpinner objSelectedSpinner1 = ((EntitySpinner) spinnerSelectType.getSelectedItem());
+            this.entityPunissement.setId_type(objSelectedSpinner1.getIndex());
+
+
+            if (insert) {
+                PunitionHelper.getInstance(this.getContext()).insert(this.entityPunissement);
+                Log.d("testing", "###################" + this.entityPunissement.getId());
+                EntityPunissement.getList().add(this.entityPunissement);
+            } else {
+                PunitionHelper.getInstance(this.getContext()).update(this.entityPunissement);
+            }
+
+            getActivity().finish();
         }
-
-        EntitySpinner objSelectedSpinner1 = ((EntitySpinner) spinnerSelectType.getSelectedItem());
-        this.entityPunissement.setId_type(objSelectedSpinner1.getIndex());
-
-
-        if (insert) {
-            PunitionHelper.getInstance(this.getContext()).insert(this.entityPunissement);
-            Log.d("testing", "###################" + this.entityPunissement.getId());
-            EntityPunissement.getList().add(this.entityPunissement);
-        } else {
-            PunitionHelper.getInstance(this.getContext()).update(this.entityPunissement);
-        }
-
-        getActivity().finish();
     }
-    }
+
     private void initSpinner() {
         List<EntityStagiaires> listStagiares = EntityStagiaires.getList();
         List<EntityGroupes> listGroupes = EntityGroupes.getList();
         List<EntityTypePunition> listTypePunition = EntityTypePunition.getList();
-        if(listStagiares.size()==0 ||listGroupes.size()==0||listTypePunition.size()==0){
+        if (listStagiares.size() == 0 || listGroupes.size() == 0 || listTypePunition.size() == 0) {
             Toast.makeText(getContext(), "List Groupe ou List Stagiaire ou ListTypePunition vide!!", Toast.LENGTH_LONG).show();
             /*Snackbar.make(getView(), "List Groupe ou List Stagiaire ou ListTypePunition vide!!", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();*/
@@ -329,7 +332,7 @@ public class CreatePunissementFragment extends Fragment {
     }
 
     private void selectedSpinnerSelectType(int find_id) {
-       int count = 0;
+        int count = 0;
         for (Object type : spinnerType) {
             if (((EntitySpinner) type).getIndex() == find_id) {
                 break;
@@ -357,72 +360,68 @@ public class CreatePunissementFragment extends Fragment {
     }
 
     private boolean Validator(String title, String description, String lieu, String date) {
-        boolean valid=true;
+        boolean valid = true;
         //String regexp[] = {"[\\d]{2,}","/\\w{2,}/u","","" };
-        if (title!=null && !title.isEmpty()) {
+        if (title != null && !title.isEmpty()) {
 
             Pattern pattern = Pattern.compile("^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._' -!?,;:\\-]{2,60}$");
 
             Matcher matcher = pattern.matcher(title);
-            if(!matcher.find())
-            {
+            if (!matcher.find()) {
                 Toast.makeText(getContext(), "Title pas valide", Toast.LENGTH_LONG).show();
-                valid=false;
+                valid = false;
             }
 
-        }else{
+        } else {
             Toast.makeText(getContext(), "Title pas valide", Toast.LENGTH_LONG).show();
-            valid= false;
+            valid = false;
 
         }
 
-        if (description!=null && !description.isEmpty()) {
+        if (description != null && !description.isEmpty()) {
 
             Pattern pattern = Pattern.compile("^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._' -!?,;:\\-]{2,60}$");
 
             Matcher matcher = pattern.matcher(description);
-            if(!matcher.find())
-            {
+            if (!matcher.find()) {
                 Toast.makeText(getContext(), "Description pas valide", Toast.LENGTH_LONG).show();
-                valid=false;
+                valid = false;
             }
 
-        }else{
+        } else {
             Toast.makeText(getContext(), "Description pas valide", Toast.LENGTH_LONG).show();
-            valid= false;
+            valid = false;
 
         }
 
-        if (lieu!=null && !lieu.isEmpty()) {
+        if (lieu != null && !lieu.isEmpty()) {
             Pattern pattern = Pattern.compile("^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._' -!?,;:\\-]{2,60}$");
 
             Matcher matcher = pattern.matcher(lieu);
-            if(!matcher.find())
-            {
+            if (!matcher.find()) {
                 Toast.makeText(getContext(), "Lieu pas valide", Toast.LENGTH_LONG).show();
-                valid=false;
+                valid = false;
             }
 
-        }else{
+        } else {
             Toast.makeText(getContext(), "Lieu pas valide", Toast.LENGTH_LONG).show();
-            valid= false;
+            valid = false;
 
         }
 
-        if (date!=null && !date.isEmpty()) {
+        if (date != null && !date.isEmpty()) {
 
             Pattern pattern = Pattern.compile("^[0-9._' \\/\\-]{2,60}$");
 
             Matcher matcher = pattern.matcher(date);
-            if(!matcher.find())
-            {
+            if (!matcher.find()) {
                 Toast.makeText(getContext(), "Date pas valide", Toast.LENGTH_LONG).show();
-                valid=false;
+                valid = false;
             }
 
-        }else{
+        } else {
             Toast.makeText(getContext(), "Date pas valide", Toast.LENGTH_LONG).show();
-            valid= false;
+            valid = false;
 
         }
 

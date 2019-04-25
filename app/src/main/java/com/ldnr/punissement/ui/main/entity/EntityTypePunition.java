@@ -16,6 +16,7 @@ public class EntityTypePunition implements IEntity {
         this.title = title;
         this.description = description;
     }
+
     public EntityTypePunition() {
 
     }
@@ -54,5 +55,9 @@ public class EntityTypePunition implements IEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String toString() {
+        return this.title + " " + this.description;
     }
 }

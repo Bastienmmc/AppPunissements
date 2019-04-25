@@ -22,34 +22,31 @@ public class TypePunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
     private static final String TABLE_TYPE_PUNITION_COLUMN_ID = "id_type_punition";
     private static final String TABLE_TYPE_PUNITION_COLUMN_TITLE = "title_type_punition";
     private static final String TABLE_TYPE_PUNITION_COLUMN_DESCRIPTION = "description_type_punition";
-
-
+    private static TypePunitionHelper instance;
     // Déclaration méthodes d'accès à la BDD
     private SQLiteDatabase dbWrite = this.getWritableDatabase();
     private SQLiteDatabase dbRead = this.getReadableDatabase();
 
+    // Constructeur
+    private TypePunitionHelper(Context context) {
+        super(context, DATABASE_NAME, null, 2);
+        try {
+            dbWrite.execSQL("CREATE TABLE " + TABLE_TYPE_PUNITION_NAME
+                    + " ( " + TABLE_TYPE_PUNITION_COLUMN_ID + " integer primary key, "
+                    + TABLE_TYPE_PUNITION_COLUMN_TITLE + " text , "
+                    + TABLE_TYPE_PUNITION_COLUMN_DESCRIPTION + " text )"
+            );
+        } catch (SQLException e) {
 
-    private static TypePunitionHelper instance;
+        }
+    }
+
     public static TypePunitionHelper getInstance(Context context) {
         if (instance == null) {
             instance = new TypePunitionHelper(context);
         }
         return instance;
     }
-    // Constructeur
-    private TypePunitionHelper(Context context) {
-        super(context, DATABASE_NAME, null, 2);
-        try{
-            dbWrite.execSQL("CREATE TABLE " + TABLE_TYPE_PUNITION_NAME
-                    + " ( " + TABLE_TYPE_PUNITION_COLUMN_ID + " integer primary key, "
-                    + TABLE_TYPE_PUNITION_COLUMN_TITLE + " text , "
-                    + TABLE_TYPE_PUNITION_COLUMN_DESCRIPTION + " text )"
-            );
-        }catch(SQLException e){
-
-        }
-    }
-
 
     // OnCreate : création table punition
     @Override
@@ -183,8 +180,8 @@ public class TypePunitionHelper extends SQLiteOpenHelper implements IDaoHelper {
     }
 
     @Override
-    public void deleteAllElelementsTable(){
-        dbWrite.execSQL("DELETE FROM "+TABLE_TYPE_PUNITION_NAME);
+    public void deleteAllElelementsTable() {
+        dbWrite.execSQL("DELETE FROM " + TABLE_TYPE_PUNITION_NAME);
     }
 
 }
